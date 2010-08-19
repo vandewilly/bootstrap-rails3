@@ -12,7 +12,6 @@ create_file ".rvmrc", rvmrc
 
 # Gems, listed in alpha order
 
-gem 'rails', '3.0.0.rc'
 gem 'mysql2'
 gem 'haml'
 gem 'haml-rails', '>= 0.0.2'
@@ -63,7 +62,6 @@ javascripts:
     - public/javascripts/jquery/jquery.blockUI.js
     - public/javascripts/lib/underscore.js
     - public/javascripts/lib/rails.js
-
     - public/javascripts/application.js
   admin:
 stylesheets:
@@ -73,6 +71,8 @@ stylesheets:
     - public/stylesheets/application.css
   admin:
 JAMMIT
+
+create_file "public/stylesheets/application.css", ""
 
 create_file "config/assets.yml", jammit
 
