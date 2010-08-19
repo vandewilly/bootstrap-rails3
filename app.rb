@@ -92,7 +92,7 @@ gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 get "http://github.com/jgeiger/rails3-app/raw/master/layout/navigation.html.haml", "app/views/shared/_navigation.html.haml"
 get "http://github.com/jgeiger/rails3-app/raw/master/layout/tracking.html.haml", "app/views/shared/_tracking.html.haml"
 
-gsub_file 'config/routes.rb', '# root :to => "welcome#index"', "  root :to => 'pages#home'"
+gsub_file 'config/routes.rb', '# root :to => "welcome#index"', "root :to => 'pages#home'"
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
