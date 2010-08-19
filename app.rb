@@ -12,7 +12,6 @@ create_file ".rvmrc", rvmrc
 
 # Gems, listed in alpha order
 
-gem 'mysql2'
 gem 'haml'
 gem 'haml-rails', '>= 0.0.2'
 gem 'warden'
@@ -33,6 +32,8 @@ gem 'webrat', :group => [:test, :cucumber]
 gem 'rspec', '>= 2.0.0.beta.19', :group => [:test, :cucumber]
 gem 'rspec-rails', '>= 2.0.0.beta.19', :group => [:development, :test, :cucumber]
 
+gsub_file 'Gemfile', 'mysql', 'mysql2'
+
 generators = <<-GENERATORS
   config.generators do |g|
     g.template_engine :haml
@@ -50,6 +51,8 @@ get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javasc
 
 get "http://yui.yahooapis.com/combo?3.1.1/build/cssreset/reset-min.css&3.1.1/build/cssfonts/fonts-min.css&3.1.1/build/cssgrids/grids-min.css", "public/stylesheets/reset-fonts-grids.css"
 get "http://yui.yahooapis.com/3.1.1/build/cssbase/base-min.css", "public/stylesheets/base.css"
+
+get "http://github.com/jgeiger/rails3-app/raw/master/loading.gif", "public/images/layout/loading.gif"
 
 jammit = <<-JAMMIT
 embed_assets: on
@@ -76,9 +79,18 @@ create_file "public/stylesheets/application.css", ""
 
 create_file "config/assets.yml", jammit
 
-# Layout
-# need way to inject the jammit includes into the layout
-# <%= stylesheet_link_tag :commmon, 'screen', :cache => true %>
+remove_file "app/views/layouts/application.html.erb"
+get "http://github.com/jgeiger/rails3-app/raw/master/layout/application.html.haml", "app/views/layouts/application.html.haml"
+gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
+
+get "http://github.com/jgeiger/rails3-app/raw/master/layout/header.html.haml", "app/views/shared/_header.html.haml"
+gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
+
+get "http://github.com/jgeiger/rails3-app/raw/master/layout/footer.html.haml", "app/views/shared/_footer.html.haml"
+gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
+
+get "http://github.com/jgeiger/rails3-app/raw/master/layout/navigation.html.haml", "app/views/shared/_navigation.html.haml"
+get "http://github.com/jgeiger/rails3-app/raw/master/layout/tracking.html.haml", "app/views/shared/_tracking.html.haml"
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
