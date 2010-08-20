@@ -63,7 +63,9 @@ end
 
 # download config
 get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config/assets.yml"
+get "http://github.com/jgeiger/rails3-app/raw/master/config/routes.rb", "config/routes.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
+
 
 # fix config
 gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
@@ -101,7 +103,6 @@ end
 end
 
 # fix routes
-gsub_file 'config/routes.rb', '# root :to => "welcome#index"', "root :to => 'pages#home'"
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
