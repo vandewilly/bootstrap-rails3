@@ -76,7 +76,7 @@ remove_file "app/views/layouts/application.html.erb"
 get "http://github.com/jgeiger/rails3-app/raw/master/app/views/layout/application.html.haml", "app/views/layouts/application.html.haml"
 gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 
-['_header', '_footer', '_navigation', '_tracking', '_rounded_box', '_pagination', '_pagination_links'].each do |shared|
+['_header', '_footer', '_navigation', '_tracking', '_rounded_box', '_pagination', '_pagination_links', '_user'].each do |shared|
   get "http://github.com/jgeiger/rails3-app/raw/master/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
