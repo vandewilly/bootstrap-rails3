@@ -82,9 +82,10 @@ get "http://github.com/jgeiger/rails3-app/raw/master/views/pages/home.html.haml"
  'passwords/edit', 'passwords/new', 'registrations/edit', 'registrations/new', 'sessions/new', 'shared/_links', 'unlocks/new'].each do |devise|
    get "http://github.com/jgeiger/rails3-app/raw/master/views/devise/#{devise}.html.haml", "app/views/devise/#{devise}.html.haml"
 end
+gsub_file 'app/views/devise/mailer/confirmation_instructions.html.haml', 'APP_NAME', "#{app_name}"
 
 # download helpers
-remove_file "app/helpers/application.rb"
+remove_file "app/helpers/application_helper.rb"
 ['application', 'pages', 'users', 'layout'].each do |helper|
   get "http://github.com/jgeiger/rails3-app/raw/master/helpers/#{helper}_helper.rb", "app/helpers/#{helper}_helper.rb"
 end
