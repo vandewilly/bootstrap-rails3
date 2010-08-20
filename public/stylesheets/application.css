@@ -2,6 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono);
 
 body, html {
+  text-align: left;
   background-color: #5282a6;
 }
 
