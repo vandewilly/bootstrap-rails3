@@ -63,6 +63,11 @@ end
 
 # download config
 get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config/assets.yml"
+get "http://github.com/jgeiger/rails3-app/raw/master/config/db/001_devise_create_users.rb", "config/db/001_devise_create_users.rb"
+
+# fix config
+gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
+gsub_file 'config/database.yml', /password:.+/, "password: root"
 
 # download views
 remove_file "app/views/layouts/application.html.erb"
@@ -136,10 +141,12 @@ docs = <<-DOCS
 Run the following commands to complete the setup of #{app_name.humanize}:
 
 % cd #{app_name}
-% bundle install (or 'bundle install $BUNDLER_PATH' if RVM/Passenger)
-% rails generate rspec:install
-% rails generate cucumber:install --rspec --capybara
-% rails generate devise:install
+% gem install bundler --pre
+% bundle install
+% bundle exec rake db:create:all
+% bundle exec rails generate rspec:install
+% bundle exec rails generate cucumber:install --rspec --capybara
+% bundle exec rails generate devise:install
 
 DOCS
 
