@@ -35,6 +35,7 @@ gem 'rspec-rails', '>= 2.0.0.beta.19', :group => [:development, :test, :cucumber
 gsub_file 'Gemfile', 'mysql', 'mysql2'
 
 generators = <<-GENERATORS
+
   config.generators do |g|
     g.template_engine :haml
     g.test_framework :rspec, :fixture => true, :views => false
@@ -63,11 +64,14 @@ end
 
 # download config
 remove_file "config/routes.rb"
+remove_file "config/locales/en.yml"
 get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config/assets.yml"
+get "http://github.com/jgeiger/rails3-app/raw/master/config/locales/en.yml", "config/locales/en.yml"
 get "http://github.com/jgeiger/rails3-app/raw/master/config/routes.rb", "config/routes.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
 
-# fix config
+# fix configs
+gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
 gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
 gsub_file 'config/database.yml', 'password:', "password: root"
 
@@ -83,6 +87,7 @@ gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
 get "http://github.com/jgeiger/rails3-app/raw/master/app/views/pages/home.html.haml", "app/views/pages/home.html.haml"
+get "http://github.com/jgeiger/rails3-app/raw/master/app/views/users/show.html.haml", "app/views/users/show.html.haml"
 
 # download devise views
 ['confirmations/new', 'mailer/confirmation_instructions', 'mailer/reset_password_instructions', 'mailer/unlock_instructions',
