@@ -62,6 +62,7 @@ get "http://github.com/jgeiger/rails3-app/raw/master/public/images/loading.gif",
 end
 
 # download config
+remove_file "config/routes.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config/assets.yml"
 get "http://github.com/jgeiger/rails3-app/raw/master/config/routes.rb", "config/routes.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
