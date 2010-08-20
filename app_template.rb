@@ -43,55 +43,57 @@ GENERATORS
 
 application generators
 
+#download javascript
 get "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",  "public/javascripts/jquery/jquery.js"
 get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js", "public/javascripts/jquery/jquery-ui.js"
 get "http://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
 
+# download css
 get "http://yui.yahooapis.com/combo?3.1.1/build/cssreset/reset-min.css&3.1.1/build/cssfonts/fonts-min.css&3.1.1/build/cssgrids/grids-min.css", "public/stylesheets/reset-fonts-grids.css"
 get "http://yui.yahooapis.com/3.1.1/build/cssbase/base-min.css", "public/stylesheets/base.css"
+get "http://github.com/jgeiger/rails3-app/raw/master/public/stylesheets/application.css", "public/stylesheets/application.css"
 
-get "http://github.com/jgeiger/rails3-app/raw/master/loading.gif", "public/images/layout/loading.gif"
+# download images
+get "http://github.com/jgeiger/rails3-app/raw/master/public/images/loading.gif", "public/images/layout/loading.gif"
+['success', 'warning', 'notice', 'error'].each do |img|
+  get "http://github.com/jgeiger/rails3-app/raw/master/public/images/#{img}.png", "public/images/icons/#{img}.png"
+end
 
-jammit = <<-JAMMIT
-embed_assets: on
-javascript_compressor: closure # (yui, closure)
+# download config
+get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config/assets.yml"
 
-javascripts:
-  common:
-    - public/javascripts/jquery/jquery.js
-    - public/javascripts/jquery/jquery-ui.js
-    - public/javascripts/jquery/jquery.blockUI.js
-    - public/javascripts/lib/underscore.js
-    - public/javascripts/lib/rails.js
-    - public/javascripts/application.js
-  admin:
-stylesheets:
-  common:
-    - public/stylesheets/reset-fonts-grids.css
-    - public/stylesheets/base.css
-    - public/stylesheets/application.css
-  admin:
-JAMMIT
-
-create_file "public/stylesheets/application.css", ""
-
-create_file "config/assets.yml", jammit
-
+# download views
 remove_file "app/views/layouts/application.html.erb"
-get "http://github.com/jgeiger/rails3-app/raw/master/layout/application.html.haml", "app/views/layouts/application.html.haml"
+get "http://github.com/jgeiger/rails3-app/raw/master/views/layout/application.html.haml", "app/views/layouts/application.html.haml"
 gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 
-get "http://github.com/jgeiger/rails3-app/raw/master/layout/header.html.haml", "app/views/shared/_header.html.haml"
+['_header', '_footer', '_navigation', '_tracking', '_rounded_box', '_pagination', '_pagination_links'].each do |shared|
+  get "http://github.com/jgeiger/rails3-app/raw/master/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
+end
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
-
-get "http://github.com/jgeiger/rails3-app/raw/master/layout/footer.html.haml", "app/views/shared/_footer.html.haml"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
-get "http://github.com/jgeiger/rails3-app/raw/master/layout/navigation.html.haml", "app/views/shared/_navigation.html.haml"
-get "http://github.com/jgeiger/rails3-app/raw/master/layout/tracking.html.haml", "app/views/shared/_tracking.html.haml"
+get "http://github.com/jgeiger/rails3-app/raw/master/views/pages/home.html.haml", "app/views/pages/home.html.haml"
 
+# download devise views
+['confirmations/new', 'mailer/confirmation_instructions', 'mailer/reset_password_instructions', 'mailer/unlock_instructions',
+ 'passwords/edit', 'passwords/new', 'registrations/edit', 'registrations/new', 'sessions/new', 'shared/_links', 'unlocks/new'].each do |devise|
+   get "http://github.com/jgeiger/rails3-app/raw/master/views/devise/#{devise}.html.haml", "app/views/devise/#{devise}.html.haml"
+end
+
+# download helpers
+['application', 'pages', 'users', 'layout'].each do |helper|
+  get "http://github.com/jgeiger/rails3-app/raw/master/helpers/#{helper}_helper.rb", "app/helpers/#{helper}_helper.rb"
+end
+
+# download controllers
+['pages', 'users'].each do |controller|
+  get "http://github.com/jgeiger/rails3-app/raw/master/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
+end
+
+# fix routes
 gsub_file 'config/routes.rb', '# root :to => "welcome#index"', "root :to => 'pages#home'"
 
 create_file "log/.gitkeep"
@@ -136,7 +138,6 @@ Run the following commands to complete the setup of #{app_name.humanize}:
 % rails generate rspec:install
 % rails generate cucumber:install --rspec --capybara
 % rails generate devise:install
-% rails generate devise User
 
 DOCS
 
