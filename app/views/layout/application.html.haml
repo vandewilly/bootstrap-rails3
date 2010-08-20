@@ -11,22 +11,20 @@
       = raw(include_javascripts(:admin))
       = raw(include_stylesheets(:admin, :media => 'all'))
     = yield(:head)
-  %body
+  %body#doc
     #loading
       = image_tag('layout/loading.gif', :alt => "Loading...")
-    #doc
-      #hd
-        = render(:partial => "shared/header.html.haml")
-      #bd
-        #navigation.rounded
-          = render(:partial => "shared/navigation.html.haml")
-          = render(:partial => "shared/user.html.haml")
-        #main.rounded
-          #flash-messages
-            = raw(flash_messages)
-          = yield
-      #ft
-        = render(:partial => "shared/footer.html.haml")
+    #hd
+      = render(:partial => "shared/header.html.haml")
+    #navigation.rounded
+      = render(:partial => "shared/navigation.html.haml")
+      = render(:partial => "shared/user.html.haml")
+    #main.rounded
+      #flash-messages
+        = raw(flash_messages)
+      = yield
+    #ft
+      = render(:partial => "shared/footer.html.haml")
     %iframe{ :src => "about:blank", :style => "height:0px;width:0px;visibility:hidden" }
       this frame prevents back forward cache
     = render(:partial => "shared/tracking.html.haml") if Rails.env.production?

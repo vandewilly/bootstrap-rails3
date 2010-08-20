@@ -18,7 +18,9 @@ img {
 }
 
 #doc {
-  padding-top: 0.5em;
+  padding-top: 10px;
+  margin: auto; /* center in viewport */
+  width: 750px; /* fix page width */
 }
 
 .rounded-left {
