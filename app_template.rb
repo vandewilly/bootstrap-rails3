@@ -70,6 +70,10 @@ get "http://github.com/jgeiger/rails3-app/raw/master/config/locales/en.yml", "co
 get "http://github.com/jgeiger/rails3-app/raw/master/config/routes.rb", "config/routes.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
 
+get "http://github.com/jgeiger/rails3-app/raw/master/config/initializers/mail.rb", "config/initializers/mail.rb"
+get "http://github.com/jgeiger/rails3-app/raw/master/config/mail.yml", "config/mail.yml"
+
+
 # fix configs
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
 gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
@@ -125,7 +129,6 @@ doc/app
 doc/api
 .svn
 *~
-config/database.yml
 log/*.log
 tmp/**/*
 tmp/*
@@ -137,6 +140,8 @@ db/*.sqlite3
 public/system/*
 .ackrc
 public/assets/[^.]*
+config/database.yml
+config/mail.yml
 config/settings.yml
 .bundle
 vendor/bundle
