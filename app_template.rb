@@ -63,11 +63,11 @@ end
 
 # download config
 get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config/assets.yml"
-get "http://github.com/jgeiger/rails3-app/raw/master/config/db/001_devise_create_users.rb", "config/db/001_devise_create_users.rb"
+get "http://github.com/jgeiger/rails3-app/raw/master/db/001_devise_create_users.rb", "db/001_devise_create_users.rb"
 
 # fix config
 gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
-gsub_file 'config/database.yml', /password:.+/, "password: root"
+gsub_file 'config/database.yml', 'password:', "password: root"
 
 # download views
 remove_file "app/views/layouts/application.html.erb"
