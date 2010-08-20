@@ -84,6 +84,7 @@ get "http://github.com/jgeiger/rails3-app/raw/master/views/pages/home.html.haml"
 end
 
 # download helpers
+remove_file "app/helpers/application.rb"
 ['application', 'pages', 'users', 'layout'].each do |helper|
   get "http://github.com/jgeiger/rails3-app/raw/master/helpers/#{helper}_helper.rb", "app/helpers/#{helper}_helper.rb"
 end
