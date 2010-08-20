@@ -150,9 +150,10 @@ Run the following commands to complete the setup of #{app_name.humanize}:
 % gem install bundler --pre
 % bundle install
 % bundle exec rake db:create:all
+% bundle exec rails generate devise:install
+% bundle exec rake db:migrate
 % bundle exec rails generate rspec:install
 % bundle exec rails generate cucumber:install --rspec --capybara
-% bundle exec rails generate devise:install
 
 DOCS
 
