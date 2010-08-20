@@ -67,40 +67,44 @@ get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config
 get "http://github.com/jgeiger/rails3-app/raw/master/config/routes.rb", "config/routes.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
 
-
 # fix config
 gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
 gsub_file 'config/database.yml', 'password:', "password: root"
 
 # download views
 remove_file "app/views/layouts/application.html.erb"
-get "http://github.com/jgeiger/rails3-app/raw/master/views/layout/application.html.haml", "app/views/layouts/application.html.haml"
+get "http://github.com/jgeiger/rails3-app/raw/master/app/views/layout/application.html.haml", "app/views/layouts/application.html.haml"
 gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 
 ['_header', '_footer', '_navigation', '_tracking', '_rounded_box', '_pagination', '_pagination_links'].each do |shared|
-  get "http://github.com/jgeiger/rails3-app/raw/master/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
+  get "http://github.com/jgeiger/rails3-app/raw/master/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
-get "http://github.com/jgeiger/rails3-app/raw/master/views/pages/home.html.haml", "app/views/pages/home.html.haml"
+get "http://github.com/jgeiger/rails3-app/raw/master/app/views/pages/home.html.haml", "app/views/pages/home.html.haml"
 
 # download devise views
 ['confirmations/new', 'mailer/confirmation_instructions', 'mailer/reset_password_instructions', 'mailer/unlock_instructions',
  'passwords/edit', 'passwords/new', 'registrations/edit', 'registrations/new', 'sessions/new', 'shared/_links', 'unlocks/new'].each do |devise|
-   get "http://github.com/jgeiger/rails3-app/raw/master/views/devise/#{devise}.html.haml", "app/views/devise/#{devise}.html.haml"
+   get "http://github.com/jgeiger/rails3-app/raw/master/app/views/devise/#{devise}.html.haml", "app/views/devise/#{devise}.html.haml"
 end
 gsub_file 'app/views/devise/mailer/confirmation_instructions.html.haml', 'APP_NAME', "#{app_name}"
 
 # download helpers
 remove_file "app/helpers/application_helper.rb"
 ['application', 'pages', 'users', 'layout'].each do |helper|
-  get "http://github.com/jgeiger/rails3-app/raw/master/helpers/#{helper}_helper.rb", "app/helpers/#{helper}_helper.rb"
+  get "http://github.com/jgeiger/rails3-app/raw/master/app/helpers/#{helper}_helper.rb", "app/helpers/#{helper}_helper.rb"
 end
 
 # download controllers
 ['pages', 'users'].each do |controller|
-  get "http://github.com/jgeiger/rails3-app/raw/master/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
+  get "http://github.com/jgeiger/rails3-app/raw/master/app/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
+end
+
+# download models
+['user'].each do |model|
+  get "http://github.com/jgeiger/rails3-app/raw/master/app/models/#{model}.rb", "app/models/#{model}.rb"
 end
 
 # fix routes
