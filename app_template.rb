@@ -73,7 +73,7 @@ get "http://github.com/jgeiger/rails3-app/raw/master/config/mail.yml", "config/m
 
 
 # fix configs
-gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name}.camelcase"
+gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name.humanize}"
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
 gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
 gsub_file 'config/database.yml', 'password:', "password: root"
@@ -150,6 +150,19 @@ create_file ".gitignore", gitignore
 
 git :init
 git :add => "."
+git :commit => "-m 'initial commit'"
+
+
+run("cd #{app_name}")
+run("gem install bundler")
+run("bundle install --path vendor/bundle")
+run("bundle exec rake db:create:all")
+run("bundle exec rails generate devise:install")
+run("bundle exec rake db:migrate")
+run("bundle exec rails generate rspec:install")
+run("bundle exec rails generate cucumber:install --rspec --capybara")
+
+route("devise_for :users")
 
 docs = <<-DOCS
 
@@ -163,6 +176,10 @@ Run the following commands to complete the setup of #{app_name.humanize}:
 % bundle exec rake db:migrate
 % bundle exec rails generate rspec:install
 % bundle exec rails generate cucumber:install --rspec --capybara
+
+or just copy/paste
+
+cd #{app_name} && gem install bundler && bundle install && bundle exec rake db:create:all && bundle exec rails generate devise:install && bundle exec rake db:migrate && bundle exec rails generate rspec:install && bundle exec rails generate cucumber:install --rspec --capybara
 
 DOCS
 
