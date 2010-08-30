@@ -152,7 +152,7 @@ git :init
 git :add => "."
 git :commit => "-m 'initial commit'"
 
-run("gem install bundler")
+run("gem install bundler capistrano")
 run("bundle install --path vendor/bundle")
 run("bundle pack")
 git :add => "."
@@ -176,6 +176,7 @@ git :commit => "-m 'install cucumber'"
 
 # download deploy scripts
 get "http://github.com/jgeiger/rails3-app/raw/master/config/deploy.rb", "config/deploy.rb"
+get "http://github.com/jgeiger/rails3-app/raw/master/Capfile", "Capfile"
 ['callback', 'development', 'git', 'maintenance', 'passenger', 'production', 'settings', 'symlinks'].each do |deploy|
   get "http://github.com/jgeiger/rails3-app/raw/master/config/deploy/#{deploy}.rb", "config/deploy/#{deploy}.rb"
 end
@@ -186,7 +187,7 @@ git :commit => "-m 'install deploy scripts'"
 
 docs = <<-DOCS
 We just ran
-gem install bundler
+gem install bundler capistrano
 bundle install
 bundle exec rake db:create:all
 bundle exec rails generate devise:install
