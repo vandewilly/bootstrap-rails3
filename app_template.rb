@@ -151,17 +151,26 @@ git :init
 git :add => "."
 git :commit => "-m 'initial commit'"
 
-
-# run("cd #{app_name}") # we start out in the directory in this script!
 run("gem install bundler")
 run("bundle install --path vendor/bundle")
+run("bundle pack")
+git :add => "."
+git :commit => "-m 'add the gems'"
+
 run("bundle exec rake db:create:all")
 run("bundle exec rails generate devise:install")
+route("devise_for :users")
+git :add => "."
+git :commit => "-m 'install devise'"
+
 run("bundle exec rake db:migrate")
 run("bundle exec rails generate rspec:install")
-run("bundle exec rails generate cucumber:install --rspec --capybara")
+git :add => "."
+git :commit => "-m 'install rspec'"
 
-route("devise_for :users")
+run("bundle exec rails generate cucumber:install --rspec --capybara")
+git :add => "."
+git :commit => "-m 'install cucumber'"
 
 gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
 
