@@ -114,8 +114,6 @@ end
   get "http://github.com/jgeiger/rails3-app/raw/master/app/models/#{model}.rb", "app/models/#{model}.rb"
 end
 
-# fix routes
-
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
 
@@ -159,6 +157,7 @@ git :commit => "-m 'add the gems'"
 
 run("bundle exec rake db:create:all")
 run("bundle exec rails generate devise:install")
+gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
 route("devise_for :users")
 git :add => "."
 git :commit => "-m 'install devise'"
@@ -172,7 +171,15 @@ run("bundle exec rails generate cucumber:install --rspec --capybara")
 git :add => "."
 git :commit => "-m 'install cucumber'"
 
-gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
+# download deploy scripts
+get "http://github.com/jgeiger/rails3-app/raw/master/config/deploy.rb", "config/deploy.rb"
+['callback', 'development', 'git', 'maintenance', 'passenger', 'production', 'settings', 'symlinks'].each do |deploy|
+  get "http://github.com/jgeiger/rails3-app/raw/master/config/deploy/#{deploy}.rb", "config/deploy/#{deploy}.rb"
+end
+gsub_file 'config/deploy/settings.rb', 'APP_NAME', "#{app_name}"
+git :add => "."
+git :commit => "-m 'install deploy scripts'"
+
 
 docs = <<-DOCS
 We just ran
