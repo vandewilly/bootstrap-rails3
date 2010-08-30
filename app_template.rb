@@ -75,7 +75,6 @@ get "http://github.com/jgeiger/rails3-app/raw/master/config/mail.yml", "config/m
 # fix configs
 gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name.humanize}"
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
-gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
 gsub_file 'config/database.yml', 'password:', "password: root"
 
 # download views
