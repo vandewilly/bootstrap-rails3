@@ -32,8 +32,6 @@ gem 'webrat', :group => [:test, :cucumber]
 gem 'rspec', '>= 2.0.0.beta.20', :group => [:test, :cucumber]
 gem 'rspec-rails', '>= 2.0.0.beta.20', :group => [:development, :test, :cucumber]
 
-gsub_file 'Gemfile', 'mysql', 'mysql2'
-
 generators = <<-GENERATORS
 
   config.generators do |g|
