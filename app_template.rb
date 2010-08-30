@@ -166,21 +166,20 @@ route("devise_for :users")
 gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
 
 docs = <<-DOCS
+We just ran
+gem install bundler
+bundle install
+bundle exec rake db:create:all
+bundle exec rails generate devise:install
+bundle exec rake db:migrate
+bundle exec rails generate rspec:install
+bundle exec rails generate cucumber:install --rspec --capybara
 
 Run the following commands to complete the setup of #{app_name.humanize}:
 
-% cd #{app_name}
-% gem install bundler
-% bundle install
-% bundle exec rake db:create:all
-% bundle exec rails generate devise:install
-% bundle exec rake db:migrate
-% bundle exec rails generate rspec:install
-% bundle exec rails generate cucumber:install --rspec --capybara
+cd #{app_name}
 
-or just copy/paste
-
-cd #{app_name} && gem install bundler && bundle install && bundle exec rake db:create:all && bundle exec rails generate devise:install && bundle exec rake db:migrate && bundle exec rails generate rspec:install && bundle exec rails generate cucumber:install --rspec --capybara
+Change 'config/initializers/devise.rb' to have the proper email address for your mailer.
 
 DOCS
 
