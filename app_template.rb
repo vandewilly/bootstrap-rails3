@@ -153,7 +153,7 @@ git :add => "."
 git :commit => "-m 'initial commit'"
 
 
-run("cd #{app_name}")
+# run("cd #{app_name}") # we start out in the directory in this script!
 run("gem install bundler")
 run("bundle install --path vendor/bundle")
 run("bundle exec rake db:create:all")
