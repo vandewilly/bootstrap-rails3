@@ -1,4 +1,4 @@
-APPNAME::Application.routes.draw do
+APP_NAME::Application.routes.draw do
 
   resources :users, :only => [:show]
 
