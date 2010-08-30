@@ -163,6 +163,8 @@ run("bundle exec rails generate cucumber:install --rspec --capybara")
 
 route("devise_for :users")
 
+gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
+
 docs = <<-DOCS
 
 Run the following commands to complete the setup of #{app_name.humanize}:
