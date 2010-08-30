@@ -50,8 +50,11 @@ get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "publ
 get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
 
 # download css
-get "http://yui.yahooapis.com/combo?3.1.1/build/cssreset/reset-min.css&3.1.1/build/cssfonts/fonts-min.css&3.1.1/build/cssgrids/grids-min.css", "public/stylesheets/reset-fonts-grids.css"
-get "http://yui.yahooapis.com/3.1.1/build/cssbase/base-min.css", "public/stylesheets/base.css"
+get "http://yuiblog.com/sandbox/yui/3.2.0pr1/build/cssreset/reset.css", "public/stylesheets/yui/reset.css"
+get "http://yuiblog.com/sandbox/yui/3.2.0pr1/build/cssfonts/fonts.css", "public/stylesheets/yui/fonts.css"
+get "http://yuiblog.com/sandbox/yui/3.2.0pr1/build/cssgrids/grids.css", "public/stylesheets/yui/grids.css"
+get "http://yuiblog.com/sandbox/yui/3.2.0pr1/build/cssbase/base.css", "public/stylesheets/yui/base.css"
+
 get "http://github.com/jgeiger/rails3-app/raw/master/public/stylesheets/application.css", "public/stylesheets/application.css"
 
 # download images

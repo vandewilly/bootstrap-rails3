@@ -12,7 +12,9 @@ javascripts:
   admin:
 stylesheets:
   common:
-    - public/stylesheets/reset-fonts-grids.css
-    - public/stylesheets/base.css
+    - public/stylesheets/yui/reset.css
+    - public/stylesheets/yui/fonts.css
+    - public/stylesheets/yui/grids.css
+    - public/stylesheets/yui/base.css
     - public/stylesheets/application.css
   admin:
