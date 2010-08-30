@@ -1,8 +1,8 @@
-MyApp::Application.routes.draw do
+APPNAME::Application.routes.draw do
 
 # uncomment this
 #  devise_for :users
-  resources :users
+  resources :users, :only => [:show]
 
   root :to => 'pages#home'
 

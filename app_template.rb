@@ -15,11 +15,11 @@ create_file ".rvmrc", rvmrc
 gem 'haml'
 gem 'haml-rails', '>= 0.0.2'
 gem 'warden'
-gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
+gem 'devise', :git => 'git://github.com/plataformatec/devise.git', :branch => 'v1.1'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'oauth2'
 gem 'will_paginate', '3.0.pre2'
-gem "jammit"
+gem 'jammit', :git => "http://github.com/documentcloud/jammit.git"
 gem 'admin_data'
 
 gem 'capybara', :group => [:test, :cucumber]
@@ -29,8 +29,8 @@ gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.0.0.beta.19', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.0.0.beta.19', :group => [:development, :test, :cucumber]
+gem 'rspec', '>= 2.0.0.beta.20', :group => [:test, :cucumber]
+gem 'rspec-rails', '>= 2.0.0.beta.20', :group => [:development, :test, :cucumber]
 
 gsub_file 'Gemfile', 'mysql', 'mysql2'
 
@@ -75,6 +75,7 @@ get "http://github.com/jgeiger/rails3-app/raw/master/config/mail.yml", "config/m
 
 
 # fix configs
+gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name}.camelcase"
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
 gsub_file 'config/database.yml', 'adapter: mysql', "adapter: mysql2"
 gsub_file 'config/database.yml', 'password:', "password: root"
@@ -157,7 +158,7 @@ docs = <<-DOCS
 Run the following commands to complete the setup of #{app_name.humanize}:
 
 % cd #{app_name}
-% gem install bundler --pre
+% gem install bundler
 % bundle install
 % bundle exec rake db:create:all
 % bundle exec rails generate devise:install
