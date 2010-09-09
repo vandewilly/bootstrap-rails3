@@ -5,21 +5,19 @@
     %meta{ :content => "text/html; charset=iso-8859-1", "http-equiv" => "Content-Type" }
     %title
       = h(yield(:title) || "APP_NAME")
-    = raw(include_javascripts(:common))
     = raw(include_stylesheets(:common, :media => 'all'))
     - admin_only do
-      = raw(include_javascripts(:admin))
       = raw(include_stylesheets(:admin, :media => 'all'))
     = yield(:head)
   %body#doc
-    #loading
-      = image_tag('layout/loading.gif', :alt => "Loading...")
     #hd
       = render(:partial => "shared/header.html.haml")
     #navigation.rounded
       = render(:partial => "shared/navigation.html.haml")
       = render(:partial => "shared/user.html.haml")
     #main.rounded
+      #loading
+        = image_tag('layout/loading.gif', :alt => "Loading...")
       #flash-messages
         = raw(flash_messages)
       = yield
@@ -28,3 +26,6 @@
     %iframe{ :src => "about:blank", :style => "height:0px;width:0px;visibility:hidden" }
       this frame prevents back forward cache
     = render(:partial => "shared/tracking.html.haml") if Rails.env.production?
+    = raw(include_javascripts(:common))
+    - admin_only do
+      = raw(include_javascripts(:admin))
