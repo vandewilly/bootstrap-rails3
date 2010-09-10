@@ -3,13 +3,6 @@
   remove_file f
 end
 
-rvmrc = <<-RVMRC
-rvm_gemset_create_on_use_flag=1
-rvm gemset use #{app_name}
-RVMRC
-
-create_file ".rvmrc", rvmrc
-
 # Gems, listed in alpha order
 
 gem 'haml'
