@@ -36,11 +36,14 @@ GENERATORS
 application generators
 
 #download javascript
-get "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js",  "public/javascripts/jquery/jquery.js"
-get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js", "public/javascripts/jquery/jquery-ui.js"
+get "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js",  "public/javascripts/jquery/jquery.js"
+get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.js", "public/javascripts/jquery/jquery-ui.js"
 get "http://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
+
+remove_file "public/javascripts/application.js"
+get "http://github.com/jgeiger/rails3-app/raw/master/public/javascripts/application.js", "public/javascripts/application.js"
 
 # download css
 get "http://yuiblog.com/sandbox/yui/3.2.0pr1/build/cssreset/reset.css", "public/stylesheets/yui/reset.css"
@@ -155,6 +158,8 @@ run("bundle exec rake db:create:all")
 run("bundle exec rails generate devise:install")
 gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
 route("devise_for :users")
+inject_into_file "config/environments/development.rb", "  config.action_mailer.default_url_options = { :host => 'local.#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
+inject_into_file "config/environments/production.rb", "  config.action_mailer.default_url_options = { :host => '#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
 git :add => "."
 git :commit => "-m 'install devise'"
 
@@ -163,7 +168,7 @@ run("bundle exec rails generate rspec:install")
 git :add => "."
 git :commit => "-m 'install rspec'"
 
-run("bundle exec rails generate cucumber:install --rspec --capybara")
+run("bundle exec rails generate cucumber:install --rspec --webrat")
 git :add => "."
 git :commit => "-m 'install cucumber'"
 
@@ -186,7 +191,7 @@ bundle exec rake db:create:all
 bundle exec rails generate devise:install
 bundle exec rake db:migrate
 bundle exec rails generate rspec:install
-bundle exec rails generate cucumber:install --rspec --capybara
+bundle exec rails generate cucumber:install --rspec --webrat
 
 Run the following commands to complete the setup of #{app_name.humanize}:
 
