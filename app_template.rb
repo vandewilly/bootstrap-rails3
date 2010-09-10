@@ -8,12 +8,11 @@ end
 gem 'haml'
 gem 'haml-rails', '>= 0.0.2'
 gem 'warden'
-gem 'devise', :git => 'git://github.com/plataformatec/devise.git', :branch => 'v1.1'
+gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'oauth2'
 gem 'will_paginate', '3.0.pre2'
 gem 'jammit', :git => "http://github.com/documentcloud/jammit.git"
-gem 'admin_data'
 
 gem 'capybara', :group => [:test, :cucumber]
 gem 'database_cleaner', :group => [:test, :cucumber]
