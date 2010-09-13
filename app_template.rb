@@ -21,8 +21,9 @@ gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.0.0.beta.20', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.0.0.beta.20', :group => [:development, :test, :cucumber]
+gem 'rspec', '>= 2.0.0.beta.22', :group => [:test, :cucumber]
+gem 'rspec-rails', '>= 2.0.0.beta.22', :group => [:development, :test, :cucumber]
+gem 'factory_girl_rails', :group => [:test, :cucumber]
 
 generators = <<-GENERATORS
 
@@ -139,6 +140,7 @@ config/mail.yml
 config/settings.yml
 .bundle
 vendor/bundle
+capybara*
 GITIGNORE
 
 create_file ".gitignore", gitignore
@@ -147,7 +149,7 @@ git :init
 git :add => "."
 git :commit => "-m 'initial commit'"
 
-run("gem install bundler capistrano")
+run("gem install bundler capistrano watchr")
 run("bundle install --path vendor/bundle")
 run("bundle pack")
 git :add => "."
@@ -168,9 +170,25 @@ run("bundle exec rails generate rspec:install")
 git :add => "."
 git :commit => "-m 'install rspec'"
 
-run("bundle exec rails generate cucumber:install --rspec --webrat")
+get "http://github.com/jgeiger/rails3-app/raw/master/spec/factories.rb", "spec/factories.rb"
+git :add => "."
+git :commit => "-m 'install factories'"
+
+
+run("bundle exec rails generate cucumber:install --rspec --capybara")
 git :add => "."
 git :commit => "-m 'install cucumber'"
+
+get "http://github.com/jgeiger/rails3-app/raw/master/features/authentication.feature", "features/authentication.feature"
+get "http://github.com/jgeiger/rails3-app/raw/master/features/step_definitions/authentication_steps.rb", "features/step_definitions/authentication_steps.rb"
+remove_file "features/support/paths.rb"
+get "http://github.com/jgeiger/rails3-app/raw/master/features/support/paths.rb", "features/support/paths.rb"
+git :add => "."
+git :commit => "-m 'default feature and steps'"
+
+get "http://github.com/jgeiger/rails3-app/raw/master/app.watchr", "app.watchr"
+git :add => "."
+git :commit => "-m 'watchr script'"
 
 # download deploy scripts
 get "http://github.com/jgeiger/rails3-app/raw/master/config/deploy.rb", "config/deploy.rb"
@@ -185,13 +203,13 @@ git :commit => "-m 'install deploy scripts'"
 
 docs = <<-DOCS
 We just ran
-gem install bundler capistrano
+gem install bundler capistrano watchr
 bundle install
 bundle exec rake db:create:all
 bundle exec rails generate devise:install
 bundle exec rake db:migrate
 bundle exec rails generate rspec:install
-bundle exec rails generate cucumber:install --rspec --webrat
+bundle exec rails generate cucumber:install --rspec --capybara
 
 Run the following commands to complete the setup of #{app_name.humanize}:
 
