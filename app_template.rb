@@ -193,7 +193,7 @@ git :commit => "-m 'watchr script'"
 # download deploy scripts
 get "http://github.com/jgeiger/rails3-app/raw/master/config/deploy.rb", "config/deploy.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/Capfile", "Capfile"
-['callback', 'development', 'git', 'maintenance', 'passenger', 'production', 'settings', 'symlinks'].each do |deploy|
+['callbacks', 'development', 'git', 'maintenance', 'passenger', 'production', 'settings', 'symlinks'].each do |deploy|
   get "http://github.com/jgeiger/rails3-app/raw/master/config/deploy/#{deploy}.rb", "config/deploy/#{deploy}.rb"
 end
 gsub_file 'config/deploy/settings.rb', 'APP_NAME', "#{app_name}"
