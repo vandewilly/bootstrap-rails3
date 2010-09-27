@@ -23,11 +23,5 @@
     %p
       = f.password_field(:password_confirmation)
     %p
-      = f.label(:send_alerts)
-      %i
-        (should we send match updates)
-    %p
-      = f.check_box(:send_alerts)
-    %p
       = f.submit("Update")
       = link_to('cancel', user_url(current_user))
