@@ -11,14 +11,20 @@ module NavigationHelpers
     when /the home\s?page/
       '/'
 
-    when /register/
+    when /signup/
       new_user_registration_path
 
     when /signin/
       user_session_path
 
+    when /forgot password/
+      new_user_password_path
+
     when /signout/
       destroy_user_session_path
+
+    when /edit user/
+      edit_user_registration_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

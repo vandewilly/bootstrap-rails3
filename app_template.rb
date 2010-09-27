@@ -6,16 +6,16 @@ end
 # Gems, listed in alpha order
 
 gem 'haml'
-gem 'haml-rails', '>= 0.0.2'
+gem 'haml-rails', :git => 'git://github.com/indirect/haml-rails.git'
 gem 'warden'
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'oauth2'
 gem 'will_paginate', '3.0.pre2'
-gem 'jammit', :git => "http://github.com/documentcloud/jammit.git"
+gem 'jammit', '0.5.3'
 
-gem 'capybara', :group => [:test, :cucumber]
-gem 'database_cleaner', :group => [:test, :cucumber]
+gem "capybara", :git => "git://github.com/jnicklas/capybara.git", :group => [:test, :cucumber]
+gem 'database_cleaner', :git => "git://github.com/bmabey/database_cleaner.git", :group => [:test, :cucumber]
 gem 'cucumber-rails', :group => [:test, :cucumber]
 gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
@@ -24,6 +24,9 @@ gem 'webrat', :group => [:test, :cucumber]
 gem 'rspec', '>= 2.0.0.beta.22', :group => [:test, :cucumber]
 gem 'rspec-rails', '>= 2.0.0.beta.22', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
+gem 'fakeweb', :group => [:test, :cucumber]
+gem 'rest-client', :group => [:test, :cucumber]
+gem 'simplecov', :group => [:test, :cucumber]
 
 generators = <<-GENERATORS
 
@@ -179,10 +182,15 @@ run("bundle exec rails generate cucumber:install --rspec --capybara")
 git :add => "."
 git :commit => "-m 'install cucumber'"
 
-get "http://github.com/jgeiger/rails3-app/raw/master/features/authentication.feature", "features/authentication.feature"
+['confirmation', 'forgot_password','pages','session','signup'].each do |feature|
+  get "http://github.com/jgeiger/rails3-app/raw/master/features/#{feature}.feature", "features/#{feature}.feature"
+end
 get "http://github.com/jgeiger/rails3-app/raw/master/features/step_definitions/authentication_steps.rb", "features/step_definitions/authentication_steps.rb"
 remove_file "features/support/paths.rb"
 get "http://github.com/jgeiger/rails3-app/raw/master/features/support/paths.rb", "features/support/paths.rb"
+get "http://github.com/jgeiger/rails3-app/raw/master/features/support/db_cleaner.rb", "features/support/db_cleaner.rb"
+inject_into_file "features/support/env.rb", "Capybara.ignore_hidden_elements = false\n", :after => "Capybara.default_selector = :css\n"
+append_file "features/support/env.rb", "FakeWeb.allow_net_connect = %r[^https?://(localhost|127\.0\.0\.1)]\n"
 git :add => "."
 git :commit => "-m 'default feature and steps'"
 

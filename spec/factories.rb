@@ -1,6 +1,5 @@
-Factory.define :user, :class => User do |m|
-  m.email "user@comp.com"
-  m.password "password"
-  m.password_confirmation "password"
-  m.confirmed_at Date.today
+Factory.define :user, :class => User do |u|
+  u.email 'minimal@example.com'
+  u.password 'test1234'
+  u.password_confirmation 'test1234'
 end
