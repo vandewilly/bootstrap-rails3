@@ -1,0 +1,59 @@
+/* Pagination */
+
+.pagination {
+  margin-top: 10px;
+  background: white;
+  position: relative;
+  left: 25%;
+  width: 50%;
+  /* self-clearing method: */
+  a, span, em {
+    padding: .2em .5em;
+    display: block;
+    float: left;
+    margin-right: 1px; }
+  span {
+    &.disabled {
+      color: #999;
+      border: 1px solid #DDD; }
+    &.current {
+      font-weight: bold;
+      background: #007a74;
+      color: white;
+      border: 1px solid #007a74; } }
+  em {
+    font-weight: bold;
+    background: #007a74;
+    color: white;
+    border: 1px solid #007a74; }
+  a {
+    text-decoration: none;
+    color: #007a74;
+    border: 1px solid #007a74;
+    &:hover, &:focus {
+      background-color: #001f7f;
+      color: #003;
+      border-color: #003; } }
+  .page_info {
+    background: #007a74;
+    color: #fff;
+    padding: .4em .6em;
+    width: 30em;
+    margin-bottom: .3em;
+    text-align: center;
+    b {
+      color: #007a74;
+      background: #fff;
+      padding: .1em .25em; } }
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; } }
+
+* {
+  html .pagination {
+    height: 1%; }
+  &:first-child+html .pagination {
+    overflow: hidden; } }
