@@ -49,12 +49,13 @@ remove_file "public/javascripts/application.js"
 get "http://github.com/jgeiger/rails3-app/raw/master/public/javascripts/application.js", "public/javascripts/application.js"
 
 # download css
-get "http://yui.yahooapis.com/3.2.0/build/cssreset/reset.css", "public/stylesheets/yui/reset.css"
-get "http://yui.yahooapis.com/3.2.0/build/cssfonts/fonts.css", "public/stylesheets/yui/fonts.css"
-get "http://yui.yahooapis.com/3.2.0/build/cssgrids/grids.css", "public/stylesheets/yui/grids.css"
-get "http://yui.yahooapis.com/3.2.0/build/cssbase/base.css", "public/stylesheets/yui/base.css"
+['reset', 'fonts', 'grids', 'base'].each do |file|
+  get "http://yui.yahooapis.com/3.2.0/build/css#{file}/#{file}.css", "public/stylesheets/yui/#{file}.css"
+end
 
-get "http://github.com/jgeiger/rails3-app/raw/master/public/stylesheets/application.css", "public/stylesheets/application.css"
+['application', '_pagination', '_flash_messages'].each do |file|
+  get "http://github.com/jgeiger/rails3-app/raw/master/public/stylesheets/sass/#{file}.scss", "public/stylesheets/sass/#{file}.scss"
+end
 
 # download images
 get "http://github.com/jgeiger/rails3-app/raw/master/public/images/loading.gif", "public/images/layout/loading.gif"
@@ -65,13 +66,10 @@ end
 # download config
 remove_file "config/routes.rb"
 remove_file "config/locales/en.yml"
-get "http://github.com/jgeiger/rails3-app/raw/master/config/assets.yml", "config/assets.yml"
-get "http://github.com/jgeiger/rails3-app/raw/master/config/locales/en.yml", "config/locales/en.yml"
-get "http://github.com/jgeiger/rails3-app/raw/master/config/routes.rb", "config/routes.rb"
+['assets.yml', 'locales/en.yml', 'routes.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
+  get "http://github.com/jgeiger/rails3-app/raw/master/config/#{file}", "config/#{file}"
+end
 get "http://github.com/jgeiger/rails3-app/raw/master/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
-
-get "http://github.com/jgeiger/rails3-app/raw/master/config/initializers/mail.rb", "config/initializers/mail.rb"
-get "http://github.com/jgeiger/rails3-app/raw/master/config/mail.yml", "config/mail.yml"
 
 
 # fix configs
@@ -90,8 +88,9 @@ end
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
-get "http://github.com/jgeiger/rails3-app/raw/master/app/views/pages/home.html.haml", "app/views/pages/home.html.haml"
-get "http://github.com/jgeiger/rails3-app/raw/master/app/views/users/show.html.haml", "app/views/users/show.html.haml"
+['pages/home', 'users/show'].each do |page|
+  get "http://github.com/jgeiger/rails3-app/raw/master/app/views/#{page}.html.haml", "app/views/#{page}.html.haml"
+end
 
 # download devise views
 ['confirmations/new', 'mailer/confirmation_instructions', 'mailer/reset_password_instructions', 'mailer/unlock_instructions',
@@ -138,6 +137,8 @@ db/*.sqlite3
 public/system/*
 .ackrc
 public/assets/[^.]*
+public/stylesheets/*.css
+*.scssc
 config/database.yml
 config/mail.yml
 config/settings.yml
