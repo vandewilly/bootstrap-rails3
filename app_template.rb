@@ -53,7 +53,7 @@ get "http://github.com/jgeiger/rails3-app/raw/master/public/javascripts/applicat
   get "http://yui.yahooapis.com/3.2.0/build/css#{file}/#{file}.css", "public/stylesheets/yui/#{file}.css"
 end
 
-['application', '_pagination', '_flash_messages'].each do |file|
+['application', '_pagination', '_flash_messages', '_variables', '_fonts', '_layout'].each do |file|
   get "http://github.com/jgeiger/rails3-app/raw/master/public/stylesheets/sass/#{file}.scss", "public/stylesheets/sass/#{file}.scss"
 end
 

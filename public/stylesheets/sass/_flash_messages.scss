@@ -1,10 +1,8 @@
-/* Flash Messages */
-
 #flash-messages {
   margin-bottom: 1em; }
 
 .notice, .success, .warning, .validation, .alert {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: $arial;
   font-size: 13px;
   border: 1px solid;
   padding: 15px 10px 15px 50px;
@@ -12,23 +10,23 @@
   background-position: 10px center; }
 
 .success {
-  color: #4F8A10;
-  background-color: #DFF2BF;
+  color: darken($success, 60%);
+  background-color: $success;
   background-image: url('/images/icons/success.png'); }
 
 .notice {
-  color: #00529B;
-  background-color: #BDE5F8;
+  color: darken($notice, 60%);
+  background-color: $notice;
   background-image: url('/images/icons/notice.png'); }
 
-.warning, .alert {
-  color: #D8000C;
-  background-color: #FFBABA;
+.warning, .alert, .validation {
+  color: darken($error, 50%);
+  background-color: $error;
   background-image: url('/images/icons/error.png'); }
 
 #error_explanation {
-  background-color: #FFEAE8;
-  border: 1px solid #FF8B7F;
+  background-color: $error;
+  border: 1px solid darken($error, 50%);
   color: #000;
   text-align: left;
   vertical-align: top;
@@ -38,7 +36,7 @@
   margin-top: 3px;
   margin-bottom: 10px;
   h2 {
-    color: #F0775E; }
+    color: darken($error, 50%); }
   ul {
     list-style-type: disc;
     list-style-position: inside;
