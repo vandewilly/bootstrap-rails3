@@ -75,7 +75,8 @@ get "http://github.com/jgeiger/rails3-app/raw/master/db/migrate/001_devise_creat
 # fix configs
 gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name.humanize}"
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
-gsub_file 'config/database.yml', 'password:', "password: root"
+password = ask("Database password:")
+gsub_file 'config/database.yml', 'password:', "password: #{password}"
 
 # download views
 remove_file "app/views/layouts/application.html.erb"
