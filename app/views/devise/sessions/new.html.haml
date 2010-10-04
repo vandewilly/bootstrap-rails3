@@ -1,20 +1,9 @@
 = page_title("Sign in")
 .form-box
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-    %p
-      = f.label(:email)
-    %p
-      = f.email_field(:email)
-
-    %p
-      = f.label(:password)
-    %p
-      = f.password_field(:password)
-
+  = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    = f.input(:email, :as => :email)
+    = f.input(:password, :as => :password)
     - if devise_mapping.rememberable?
-      = f.hidden_field(:remember_me, :value => true)
-
-    %p
-      = f.submit("Sign in")
-
+      = f.input(:remember_me, :as => :hidden, :input_html => {:value => '1'})
+    = f.button(:submit, "Sign in")
   = render(:partial => "devise/shared/links")

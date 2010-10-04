@@ -55,7 +55,7 @@ get "#{repository_url}/public/javascripts/application.js", "public/javascripts/a
   get "http://yui.yahooapis.com/3.2.0/build/css#{file}/#{file}.css", "public/stylesheets/yui/#{file}.css"
 end
 
-['application', '_pagination', '_flash_messages', '_variables', '_fonts', '_layout'].each do |file|
+['application', '_colors', '_flash_messages', '_fonts', '_forms', '_layout', '_pagination', '_template', '_variables'].each do |file|
   get "#{repository_url}/public/stylesheets/sass/#{file}.scss", "public/stylesheets/sass/#{file}.scss"
 end
 
@@ -167,6 +167,11 @@ run("bundle pack")
 git :add => "."
 git :commit => "-m 'add the gems'"
 
+run("bundle exec rails generate simple_form:install")
+gsub_file 'config/initializers/simple_form.rb', ', :error', ""
+git :add => "."
+git :commit => "-m 'install simple_form'"
+
 run("bundle exec rake db:create:all")
 run("bundle exec rails generate devise:install")
 gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
@@ -185,7 +190,6 @@ git :commit => "-m 'install rspec'"
 get "#{repository_url}/spec/factories.rb", "spec/factories.rb"
 git :add => "."
 git :commit => "-m 'install factories'"
-
 
 run("bundle exec rails generate cucumber:install --rspec --capybara")
 git :add => "."

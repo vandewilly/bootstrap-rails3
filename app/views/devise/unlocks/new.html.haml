@@ -2,11 +2,6 @@
 = devise_error_messages!
 .form-box
   = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
-    %p
-      = f.label(:email)
-    %p
-      = f.email_field(:email)
-
-    %p
-      = f.submit("Resend unlock instructions")
+    = f.input(:email, :as => :email)
+    = f.button(:submit, "Resend unlock instructions")
   = render(:partial => "devise/shared/links")

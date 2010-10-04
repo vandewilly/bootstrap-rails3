@@ -1,97 +1,30 @@
-body, html {
-  text-align: left;
-  background-color: $page_background; }
+.help {
+  color: $help_txt;
+  background-color: $help_bg;
+  border: thin solid darken($help_bg, 30%);
+  padding: 10px; }
 
-a {
-  color: $link; }
-
-th {
-  text-align: left; }
-
-img {
-  border: none; }
-
-#doc {
-  padding-top: 10px;
-  margin: auto;
-  /* center in viewport */
-  width: 750px;
-  /* fix page width */ }
-
-.rounded-left {
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px; }
-
-.rounded-right {
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-right-radius: 5px; }
-
-.rounded {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
-
-#loading {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  z-index: 100;
-  display: none; }
-
-.page-title {
-  font-family: $droid_mono;
-  font-size: 28px;
+.row-header {
+  color: $row_header_txt;
   font-weight: bold;
-  color: #000; }
+  background-color: $row_header_bg; }
 
-.section-title {
-  font-family: $droid;
-  font-size: 24px;
-  color: #000; }
+.row-odd {
+  background-color: $row_odd_bg; }
 
-#hd {
-  position: relative; }
+.row-even {
+  background-color: $row_even_bg; }
 
-#header {
-  height: 90px;
-  margin: 0px;
-  padding: 5px 5px 5px 10px;
-  position: relative;
-  background-color: $header_bg; }
+.row-alt {
+  background-color: $row_alt_bg; }
 
-#user {
-  position: absolute;
-  z-index: 5;
-  top: 5px;
-  right: 10px; }
+.faded {
+  filter: alpha(opacity = 20);
+  /* IE */
+  opacity: 0.2;
+  /* Safari, Opera */
+  -moz-opacity: 0.20;
+  /* FireFox */ }
 
-#help {
-  position: absolute;
-  z-index: 5;
-  top: 5px;
-  right: 10px;
-  top: 45px; }
-
-#main {
-  position: relative;
-  min-height: 500px;
-  margin-top: 5px;
-  padding: 10px;
-  background-color: $main_bg; }
-
-#navigation {
-  margin-top: 5px;
-  padding: 10px;
-  color: #fff;
-  background-color: $nav_bg;
-  position: relative;
-  a {
-    color: $nav_link; } }
-
-#footer {
-  padding: 10px;
-  text-align: center;
-  color: $footer_text; }
+.clear {
+  clear: both; }
