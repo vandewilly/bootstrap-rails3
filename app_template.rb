@@ -77,7 +77,9 @@ get "#{repository_url}/db/migrate/001_devise_create_users.rb", "db/migrate/001_d
 # fix configs
 gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name.humanize}"
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
-password = ask("Database password:")
+username = ask("Local database username (enter for root):") || "root"
+password = ask("Local database password (enter for root):") || "root"
+gsub_file 'config/database.yml', 'username: root', "username: #{username}"
 gsub_file 'config/database.yml', 'password:', "password: #{password}"
 
 # download views
