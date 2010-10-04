@@ -16,6 +16,8 @@ gem 'oauth2'
 gem 'will_paginate', '3.0.pre2'
 gem 'jammit', '0.5.3'
 
+gem 'simple_form'
+
 gem "capybara", :git => "http://github.com/jnicklas/capybara.git", :group => [:test, :cucumber]
 gem 'database_cleaner', :git => "http://github.com/bmabey/database_cleaner.git", :group => [:test, :cucumber]
 gem 'cucumber-rails', :group => [:test, :cucumber]
