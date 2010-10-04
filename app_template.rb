@@ -78,7 +78,7 @@ get "#{repository_url}/db/migrate/001_devise_create_users.rb", "db/migrate/001_d
 gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name.classify}"
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
 username = ask("Local database username (enter for root):")
-password = ask("Local database password:")
+password = ask("Local database password (enter for blank):")
 username = username.blank? ? "root" : username
 puts "Setting database username to #{username}"
 puts "Setting database password to #{password}"
