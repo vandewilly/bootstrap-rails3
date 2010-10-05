@@ -43,8 +43,8 @@ GENERATORS
 application generators
 
 #download javascript
-get "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js",  "public/javascripts/jquery/jquery.js"
-get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.js", "public/javascripts/jquery/jquery-ui.js"
+get "http://code.jquery.com/jquery-latest.js",  "public/javascripts/jquery/jquery.js"
+get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.js", "public/javascripts/jquery/jquery-ui.js"
 get "http://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
