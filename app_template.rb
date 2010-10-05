@@ -62,9 +62,9 @@ end
 end
 
 # download images
-get "#{repository_url}/public/images/loading.gif", "public/images/layout/loading.gif"
-['success', 'warning', 'notice', 'error'].each do |img|
-  get "#{repository_url}/public/images/#{img}.png", "public/images/icons/#{img}.png"
+get "#{repository_url}/public/images/layout/loading.gif", "public/images/layout/loading.gif"
+['icons/success', 'icons/warning', 'icons/notice', 'icons/error', 'layout/logo'].each do |img|
+  get "#{repository_url}/public/images/#{img}.png", "public/images/#{img}.png"
 end
 
 # download config
