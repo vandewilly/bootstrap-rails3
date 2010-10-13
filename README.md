@@ -1,6 +1,6 @@
 Generate a Rails 3 application with RSpec, Cucumber, Haml, YUI css, Jammit and jQuery in one line:
 
-    % rails new application_name -J -T -d mysql -m http://github.com/jgeiger/bootstrap-rails3/raw/master/app_template.rb
+    % rails new application_name -J -T -d mysql -m http://github.com/jgeiger/bootstrap-rails3/raw/facebook/app_template.rb
 
 Javascript
 ----------
@@ -19,8 +19,9 @@ CSS
 Gems
 ----
 
+* [omniauth](http://github.com/intridea/omniauth/)
+* [mini_fb](http://github.com/appoxy/mini_fb/)
 * [haml](http://haml-lang.com/)
-* [devise](http://github.com/plataformatec/devise)
 * [will_paginate](http://github.com/mislav/will_paginate)
 * [jammit](http://documentcloud.github.com/jammit/)
 * [simple_form](http://github.com/plataformatec/simple_form)

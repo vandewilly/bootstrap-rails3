@@ -3,6 +3,6 @@
 .form-box
   - if me?(@user)
     %br
-    == Email: #{@user.email}
+    == ID: #{@user.id}
     %br
-    = link_to("edit", edit_user_registration_url)
+    == Access token: #{@user.access_token}

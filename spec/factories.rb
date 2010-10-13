@@ -1,5 +1,9 @@
-Factory.define :user, :class => User do |u|
-  u.email 'minimal@example.com'
-  u.password 'test1234'
-  u.password_confirmation 'test1234'
+Factory.define :user, :class => User do |m|
+  m.access_token 'abcd'
+end
+
+Factory.define :authentication, :class => Authentication do |m|
+  m.uid '1234567890'
+  m.provider 'facebook'
+  m.association :user, :factory => :user
 end

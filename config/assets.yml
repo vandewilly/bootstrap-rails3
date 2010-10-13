@@ -3,8 +3,6 @@ javascript_compressor: closure # (yui, closure)
 
 javascripts:
   common:
-    - public/javascripts/jquery/jquery.js
-    - public/javascripts/jquery/jquery-ui.js
     - public/javascripts/jquery/jquery.blockUI.js
     - public/javascripts/lib/underscore.js
     - public/javascripts/lib/rails.js

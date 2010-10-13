@@ -26,6 +26,7 @@
     %iframe{ :src => "about:blank", :style => "height:0px;width:0px;visibility:hidden" }
       this frame prevents back forward cache
     = render(:partial => "shared/tracking.html.haml") if Rails.env.production?
+    %script{:src => "http://cdn.jquerytools.org/1.2.5/jquery.tools.min.js"}
     = raw(include_javascripts(:common))
     - admin_only do
       = raw(include_javascripts(:admin))

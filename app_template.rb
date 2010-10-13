@@ -1,4 +1,4 @@
-repository_url = "http://github.com/jgeiger/bootstrap-rails3/raw/master"
+repository_url = "http://github.com/jgeiger/bootstrap-rails3/raw/facebook"
 
 # Remove normal files we don't want
 %w(README public/index.html public/favicon.ico public/robots.txt public/images/rails.png).each do |f|
@@ -9,12 +9,12 @@ end
 
 gem 'haml'
 gem 'haml-rails', :git => 'http://github.com/indirect/haml-rails.git'
-gem 'warden'
-gem 'devise', :git => 'http://github.com/plataformatec/devise.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
-gem 'oauth2'
 gem 'will_paginate', '3.0.pre2'
 gem 'jammit', '0.5.3'
+
+gem 'omniauth'
+gem 'mini_fb'
 
 gem 'simple_form'
 
@@ -25,8 +25,8 @@ gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.0.0.rc', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.0.0.rc', :group => [:development, :test, :cucumber]
+gem 'rspec', '>= 2.0.0', :group => [:test, :cucumber]
+gem 'rspec-rails', '>= 2.0.0', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
 gem 'fakeweb', :group => [:test, :cucumber]
 gem 'rest-client', :group => [:test, :cucumber]
@@ -43,8 +43,6 @@ GENERATORS
 application generators
 
 #download javascript
-get "http://code.jquery.com/jquery-latest.js",  "public/javascripts/jquery/jquery.js"
-get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.js", "public/javascripts/jquery/jquery-ui.js"
 get "http://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
@@ -63,7 +61,7 @@ end
 
 # download images
 get "#{repository_url}/public/images/layout/loading.gif", "public/images/layout/loading.gif"
-['icons/success', 'icons/warning', 'icons/notice', 'icons/error', 'layout/logo'].each do |img|
+['icons/success', 'icons/warning', 'icons/notice', 'icons/error', 'layout/logo', 'layout/facebook_64'].each do |img|
   get "#{repository_url}/public/images/#{img}.png", "public/images/#{img}.png"
 end
 
@@ -73,7 +71,8 @@ remove_file "config/locales/en.yml"
 ['assets.yml', 'locales/en.yml', 'routes.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
-get "#{repository_url}/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
+get "#{repository_url}/db/migrate/001_create_users.rb", "db/migrate/001_create_users.rb"
+get "#{repository_url}/db/migrate/002_create_authentications.rb", "db/migrate/002_create_authentications.rb"
 
 
 # fix configs
@@ -98,16 +97,9 @@ end
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
-['pages/home', 'users/show'].each do |page|
+['pages/home', 'users/show', 'sessions/new'].each do |page|
   get "#{repository_url}/app/views/#{page}.html.haml", "app/views/#{page}.html.haml"
 end
-
-# download devise views
-['confirmations/new', 'mailer/confirmation_instructions', 'mailer/reset_password_instructions', 'mailer/unlock_instructions',
- 'passwords/edit', 'passwords/new', 'registrations/edit', 'registrations/new', 'sessions/new', 'shared/_links', 'unlocks/new'].each do |devise|
-   get "#{repository_url}/app/views/devise/#{devise}.html.haml", "app/views/devise/#{devise}.html.haml"
-end
-gsub_file 'app/views/devise/mailer/confirmation_instructions.html.haml', 'APP_NAME', "#{app_name}"
 
 # download helpers
 remove_file "app/helpers/application_helper.rb"
@@ -116,12 +108,13 @@ remove_file "app/helpers/application_helper.rb"
 end
 
 # download controllers
-['pages', 'users'].each do |controller|
+remove_file "app/controllers/application_controller.rb"
+['pages', 'users', 'application'].each do |controller|
   get "#{repository_url}/app/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
 end
 
 # download models
-['user'].each do |model|
+['user', 'authentication'].each do |model|
   get "#{repository_url}/app/models/#{model}.rb", "app/models/#{model}.rb"
 end
 
@@ -163,7 +156,7 @@ git :init
 git :add => "."
 git :commit => "-m 'initial commit'"
 
-run("gem install bundler capistrano watchr")
+run("gem install bundler capistrano")
 run("bundle install --path vendor/bundle")
 run("bundle pack")
 git :add => "."
@@ -175,15 +168,6 @@ git :add => "."
 git :commit => "-m 'install simple_form'"
 
 run("bundle exec rake db:create:all")
-run("bundle exec rails generate devise:install")
-gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
-route("devise_for :users")
-inject_into_file "config/environments/test.rb", "  config.action_mailer.default_url_options = { :host => 'local.#{app_name}.com' }\n", :after => "delivery_method = :test\n"
-inject_into_file "config/environments/development.rb", "  config.action_mailer.default_url_options = { :host => 'local.#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
-inject_into_file "config/environments/production.rb", "  config.action_mailer.default_url_options = { :host => '#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
-git :add => "."
-git :commit => "-m 'install devise'"
-
 run("bundle exec rake db:migrate")
 run("bundle exec rails generate rspec:install")
 git :add => "."
@@ -197,7 +181,7 @@ run("bundle exec rails generate cucumber:install --rspec --capybara")
 git :add => "."
 git :commit => "-m 'install cucumber'"
 
-['confirmation', 'forgot_password','pages','session','signup'].each do |feature|
+['pages', 'session'].each do |feature|
   get "#{repository_url}/features/#{feature}.feature", "features/#{feature}.feature"
 end
 get "#{repository_url}/features/step_definitions/authentication_steps.rb", "features/step_definitions/authentication_steps.rb"
@@ -208,10 +192,6 @@ inject_into_file "features/support/env.rb", "Capybara.ignore_hidden_elements = f
 append_file "features/support/env.rb", "FakeWeb.allow_net_connect = %r[^https?://(localhost|127\.0\.0\.1)]\n"
 git :add => "."
 git :commit => "-m 'default feature and steps'"
-
-get "#{repository_url}/app.watchr", "app.watchr"
-git :add => "."
-git :commit => "-m 'watchr script'"
 
 # download deploy scripts
 get "#{repository_url}/config/deploy.rb", "config/deploy.rb"
@@ -226,19 +206,16 @@ git :commit => "-m 'install deploy scripts'"
 
 docs = <<-DOCS
 We just ran
-gem install bundler capistrano watchr
+gem install bundler capistrano
 bundle install
 bundle exec rake db:create:all
-bundle exec rails generate devise:install
 bundle exec rake db:migrate
 bundle exec rails generate rspec:install
 bundle exec rails generate cucumber:install --rspec --capybara
 
-Run the following commands to complete the setup of #{app_name.humanize}:
+Run the following commands to complete the setup of #{app_name.classify}:
 
 cd #{app_name}
-
-Change 'config/initializers/devise.rb' to have the proper email address for your mailer.
 
 DOCS
 
