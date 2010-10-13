@@ -15,12 +15,15 @@ class SessionsController < ApplicationController
     end
     # Log the authorizing user in.
     self.current_user = @auth.user
-    flash[:success] = 'Signed in successfully.'
-    render(:text => "Welcome, #{current_user.id}.")
+    flash[:success] = "Signed in successfully."
+    redirect_to(user_url(current_user))
   end
 
   def destroy
     current_user = nil
+    session[:user_id] = nil
+    flash[:success] = "Signed out successfully."
+    redirect_to(root_url)
   end
 
 end

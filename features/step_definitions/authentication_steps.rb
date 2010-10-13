@@ -2,8 +2,8 @@ Given /^I am not authenticated$/ do
   visit('/sessions/destroy') # ensure that at least
 end
 
-Given /^I have one\s+user "([^\"]*)" with access_token "([^\"]*)"$/ do |user_id, access_token|
-  @user = Factory.build(:user, :id => user_id, :access_token => access_token)
+Given /^I have one\s+user "([^\"]*)" with token "([^\"]*)"$/ do |user_id, token|
+  @user = Factory.build(:user, :id => user_id, :token => token)
 end
 
 # Session

@@ -18,10 +18,10 @@ module ApplicationHelper
   end
 
   def login_logout
-    if current_user?
-      link_to(t('link.sign-out'), destroy_session_url, :confirm => t('confirm.areyousure'))
+    if current_user
+      button_to(t('link.sign-out'), session_path("delete"), :method => :delete)
     else
-      link_to(t('link.sign-in'), new_session_url)
+      link_to(t('link.sign-in'), new_session_path)
     end
   end
 

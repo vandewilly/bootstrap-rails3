@@ -1,5 +1,5 @@
 Factory.define :user, :class => User do |m|
-  m.access_token 'abcd'
+  m.token 'abcd'
 end
 
 Factory.define :authentication, :class => Authentication do |m|

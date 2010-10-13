@@ -68,7 +68,7 @@ end
 # download config
 remove_file "config/routes.rb"
 remove_file "config/locales/en.yml"
-['assets.yml', 'locales/en.yml', 'routes.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
+['assets.yml', 'locales/en.yml', 'routes.rb', 'initializers/omniauth.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
 get "#{repository_url}/db/migrate/001_create_users.rb", "db/migrate/001_create_users.rb"
@@ -109,7 +109,7 @@ end
 
 # download controllers
 remove_file "app/controllers/application_controller.rb"
-['pages', 'users', 'application'].each do |controller|
+['sessions', 'pages', 'users', 'application'].each do |controller|
   get "#{repository_url}/app/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
 end
 
