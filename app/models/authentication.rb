@@ -11,7 +11,7 @@ class Authentication < ActiveRecord::Base
 
     def create_from_hash(hash, user = nil)
       user ||= User.create_from_hash!(hash)
-      Authentication.create(:user => user, :uid => hash['uid'], :provider => hash['provider'])
+      Authentication.create(:user => user, :uid => hash['uid'], :provider => hash['provider'], :token => hash['credentials']['token'])
     end
   end #of self
 

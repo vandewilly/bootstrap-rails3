@@ -4,6 +4,7 @@ class CreateAuthentications < ActiveRecord::Migration
       t.integer :user_id
       t.string :uid, :limit => 32
       t.string :provider, :limit => 32
+      t.string :token
       t.timestamps
     end
     add_index :authentications, :user_id
