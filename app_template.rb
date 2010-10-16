@@ -14,7 +14,7 @@ gem 'devise', :git => 'http://github.com/plataformatec/devise.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'oauth2'
 gem 'will_paginate', '3.0.pre2'
-gem 'jammit', '0.5.3'
+gem 'jammit', :git => 'http://github.com/documentcloud/jammit.git'
 
 gem 'simple_form'
 
@@ -25,8 +25,8 @@ gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.0.0.rc', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.0.0.rc', :group => [:development, :test, :cucumber]
+gem 'rspec', '>= 2.0.0', :group => [:test, :cucumber]
+gem 'rspec-rails', '>= 2.0.1', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
 gem 'fakeweb', :group => [:test, :cucumber]
 gem 'rest-client', :group => [:test, :cucumber]
@@ -43,8 +43,6 @@ GENERATORS
 application generators
 
 #download javascript
-get "http://code.jquery.com/jquery-latest.js",  "public/javascripts/jquery/jquery.js"
-get "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.js", "public/javascripts/jquery/jquery-ui.js"
 get "http://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
@@ -163,7 +161,7 @@ git :init
 git :add => "."
 git :commit => "-m 'initial commit'"
 
-run("gem install bundler capistrano watchr")
+run("gem install bundler capistrano")
 run("bundle install --path vendor/bundle")
 run("bundle pack")
 git :add => "."
@@ -209,10 +207,6 @@ append_file "features/support/env.rb", "FakeWeb.allow_net_connect = %r[^https?:/
 git :add => "."
 git :commit => "-m 'default feature and steps'"
 
-get "#{repository_url}/app.watchr", "app.watchr"
-git :add => "."
-git :commit => "-m 'watchr script'"
-
 # download deploy scripts
 get "#{repository_url}/config/deploy.rb", "config/deploy.rb"
 get "#{repository_url}/Capfile", "Capfile"
@@ -226,7 +220,7 @@ git :commit => "-m 'install deploy scripts'"
 
 docs = <<-DOCS
 We just ran
-gem install bundler capistrano watchr
+gem install bundler capistrano
 bundle install
 bundle exec rake db:create:all
 bundle exec rails generate devise:install
@@ -234,7 +228,7 @@ bundle exec rake db:migrate
 bundle exec rails generate rspec:install
 bundle exec rails generate cucumber:install --rspec --capybara
 
-Run the following commands to complete the setup of #{app_name.humanize}:
+Run the following commands to complete the setup of #{app_name.classify}:
 
 cd #{app_name}
 
