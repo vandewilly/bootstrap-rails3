@@ -11,7 +11,7 @@ gem 'haml'
 gem 'haml-rails', :git => 'http://github.com/indirect/haml-rails.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'will_paginate', '3.0.pre2'
-gem 'jammit', '0.5.3'
+gem 'jammit', :git => 'http://github.com/documentcloud/jammit.git'
 
 gem 'omniauth'
 gem 'mini_fb'
@@ -26,7 +26,7 @@ gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
 gem 'rspec', '>= 2.0.0', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.0.0', :group => [:development, :test, :cucumber]
+gem 'rspec-rails', '>= 2.0.1', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
 gem 'fakeweb', :group => [:test, :cucumber]
 gem 'rest-client', :group => [:test, :cucumber]
