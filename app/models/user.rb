@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
   class << self
     def create_from_hash!(hash)
-      create(:login => hash['user_info']['nickname'], :name => hash['user_info']['name'])
+      nickname = !!(hash['user_info']['nickname'] =~ /^profile\.php/) ? hash['user_info']['name'].downcase : hash['user_info']['nickname']
+      create(:login => nickname, :name => hash['user_info']['name'])
     end
   end
 
