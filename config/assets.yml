@@ -3,6 +3,7 @@ javascript_compressor: closure # (yui, closure)
 
 javascripts:
   common:
+    - public/javascripts/jquery/jquery.js
     - public/javascripts/jquery/jquery.blockUI.js
     - public/javascripts/lib/underscore.js
     - public/javascripts/lib/rails.js
@@ -12,7 +13,6 @@ stylesheets:
   common:
     - public/stylesheets/yui/reset.css
     - public/stylesheets/yui/fonts.css
-    - public/stylesheets/yui/grids.css
     - public/stylesheets/yui/base.css
     - public/stylesheets/application.css
   admin:

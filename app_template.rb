@@ -1,4 +1,4 @@
-repository_url = "http://github.com/jgeiger/bootstrap-rails3/raw/master"
+repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/master"
 
 # Remove normal files we don't want
 %w(README public/index.html public/favicon.ico public/robots.txt public/images/rails.png).each do |f|
@@ -8,25 +8,26 @@ end
 # Gems, listed in alpha order
 
 gem 'haml'
+gem 'mysql2'
 gem 'haml-rails', :git => 'http://github.com/indirect/haml-rails.git'
 gem 'warden'
 gem 'devise', :git => 'http://github.com/plataformatec/devise.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
-gem 'oauth2'
 gem 'will_paginate', '3.0.pre2'
 gem 'jammit', :git => 'http://github.com/documentcloud/jammit.git'
 
 gem 'simple_form'
+gem 'uuidtools'
 
-gem "capybara", :git => "http://github.com/jnicklas/capybara.git", :group => [:test, :cucumber]
+gem 'capybara', :git => "http://github.com/jnicklas/capybara.git", :group => [:test, :cucumber]
 gem 'database_cleaner', :git => "http://github.com/bmabey/database_cleaner.git", :group => [:test, :cucumber]
 gem 'cucumber-rails', :group => [:test, :cucumber]
 gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.0.0', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.0.1', :group => [:development, :test, :cucumber]
+gem 'rspec', '>= 2.2.0', :group => [:test, :cucumber]
+gem 'rspec-rails', '>= 2.2.0', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
 gem 'fakeweb', :group => [:test, :cucumber]
 gem 'rest-client', :group => [:test, :cucumber]
@@ -43,15 +44,16 @@ GENERATORS
 application generators
 
 #download javascript
-get "http://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
-get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
-get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
+get "http://code.jquery.com/jquery-1.4.4.js", "public/javascripts/jquery/jquery.js"
+get "https://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
+get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
+get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
 
 remove_file "public/javascripts/application.js"
 get "#{repository_url}/public/javascripts/application.js", "public/javascripts/application.js"
 
 # download css
-['reset', 'fonts', 'grids', 'base'].each do |file|
+['reset', 'fonts', 'base'].each do |file|
   get "http://yui.yahooapis.com/3.2.0/build/css#{file}/#{file}.css", "public/stylesheets/yui/#{file}.css"
 end
 

@@ -41,3 +41,4 @@ require 'capistrano/ext/multistage'
 after  "deploy:update_code", "deploy:write_revision"
 before "deploy:gems", "deploy:symlink"
 after  "deploy:update_code", "deploy:gems"
+after 'deploy:update_code', 'deploy:precache_assets'
