@@ -1,4 +1,4 @@
-repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/master"
+repository_url = "http://github.com/jgeiger/bootstrap-rails3/raw/master"
 
 # Remove normal files we don't want
 %w(README public/index.html public/favicon.ico public/robots.txt public/images/rails.png).each do |f|
@@ -45,9 +45,9 @@ application generators
 
 #download javascript
 get "http://code.jquery.com/jquery-1.4.4.js", "public/javascripts/jquery/jquery.js"
-get "https://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
-get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
-get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
+get "http://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
+get "http://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
+get "http://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
 
 remove_file "public/javascripts/application.js"
 get "#{repository_url}/public/javascripts/application.js", "public/javascripts/application.js"
