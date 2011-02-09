@@ -1,49 +1,37 @@
-$page_background: #5282A6;
+$page_background: #5282a6;
 
 $txt: #000;
-$light_txt: #fff;
 
-$dark_bg: #5282A6;
-$light_bg: #fff;
-
-$light_link: #fff;
-$link: #093844;
-$page_title: #093844;
-$section_title: #093844;
-$header_bg: #ddd;
+$link: #000;
+$header_bg: #fff;
 $main_bg: #fff;
-$banner_bg: #555;
-
-$nav_text: #000;
-$nav_link: #000;
-$nav_link_bg: #fff;
-$nav_bg: #fff;
-$admin_link_bg: #f77;
-$admin_hover_bg: #f33;
-
-$footer_text: #fff;
-$footer_bg: #20262b;
-
-$form_box_bg: #80a894;
-$form_box_border: #52736b;
+$nav_bg: #222526;
+$nav_txt: #fff;
+$nav_link: #fff;
+$footer_bg: #222526;
+$footer_txt: #fff;
+$footer_link: #fff;
+$page_title: #000;
 
 $help_bg: #eef3dc;
 $help_txt: #000;
 
-$tab_inactive_bg: #80a894;
-$tab_active_bg: #52736b;
+$row_header_bg: #000;
+$row_header_txt: #fff;
+$row_odd_bg: #fff;
+$row_even_bg: #c5d6fa;
+$row_alt_bg: #d3d3d3;
+$highlight: #ffff00;
+
+$selected_term_bg: #eabb78;
+$selected_gene_bg: #fff;
+$remove_txt: #b22;
 
 $success: #e5f2cf;
-$notice: #c4d8f4;
+$notice: #e8eaff;
 $error: #ffeae8;
 
 $pagination_bg: #fff;
 $pagination_disabled_fg: #999;
-$pagination_current_bg: #093844;
+$pagination_current_bg: #007a74;
 $pagination_current_fg: #fff;
-
-$row_header_bg: #000;
-$row_header_txt: #fff;
-$row_odd_bg: #c5d6fa;
-$row_even_bg: #ffffff;
-$row_alt_bg: #d3d3d3;

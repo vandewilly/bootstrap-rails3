@@ -1,7 +1,6 @@
 body, html {
   height: 100%;
   text-align: left;
-  font-family: $droid_mono;
   background-color: $page_background;
   color: $txt; }
 
@@ -14,162 +13,77 @@ th {
 img {
   border: none; }
 
-.rounded-top {
-  border-top-left-radius: 5px;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px; }
-
-.rounded-bottom {
-  border-bottom-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px; }
-
-.rounded-left {
-  border-top-left-radius: 5px;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px; }
-
-.rounded-right {
-  border-top-right-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-right-radius: 5px; }
-
-.rounded {
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
-
-.shadowed {
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-  -moz-box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-  -webkit-box-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
-
-.border-black {
-  border: 1px solid #000; }
-
-.border-white {
-  border: 1px solid #fff; }
-
-.border-grey {
-  border: 1px solid #444; }
-
 #loading {
   position: absolute;
-  top: 85px;
-  right: 10px;
+  top: 20px;
+  right: 30px;
   z-index: 100;
   display: none; }
-
-.page-title {
-  font-family: $droid_mono;
-  font-size: 28px;
-  font-weight: bold;
-  color: $page_title;
-  margin-bottom: 10px; }
-
-h1, h2, h3, h4 {
-  font-family: $droid_mono;
-  font-size: 20px;
-  color: $section_title }
-
-h2, h3, h4 {
-  font-size: 16px; }
-
-h3 {
-  margin: 0px;
-  margin-bottom: 5px; }
-
-h4 {
-  color: darken($section_title, 50%);
-  margin-left: 5px;
-  font-size: 12px; }
 
 @mixin center-layout {
   /* center in viewport */
   /* fix page width */
-  width: 960px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  width: 940px;
   margin: auto;
   display: block;
+  padding: 10px;
   position: relative; }
 
 #header {
-  background: $page_background; }
+  background-color: $header_bg; }
 
 .header {
   @include center-layout;
-  height: 40px;
   background-color: $header_bg;
-  .logo {
-    z-index: 10; } }
-
-.navigation, .navigation-small {
-  color: $nav_text;
-  font-size: 16px;
-  text-align: left;
-  margin-top: 10px;
-  a {
-    color: $nav_link;
-    text-decoration: none; } }
-
-.navigation-small {
-  font-size: 12px;
-  .nav-link, .admin-link {
-    text-align: center;
-    margin-top: 5px; } }
-
-.nav-link, .admin-link {
-  font-family: $droid_mono;
-  border: 2px solid #000;
-  background: $nav_link_bg;
-  padding: 5px; }
-
-.nav-link:hover {
-  background: darken($nav_link_bg, 10%); }
-
-.admin-link {
-  background: $admin_link_bg;
-  &:hover {
-    background: $admin_hover_bg; } }
+  height: 90px; }
 
 #content {
-  background: $page_background; }
+  background-color: $page_background; }
 
 .main {
   @include center-layout;
-  min-height: 700px;
-  background-color: $light_bg; }
+  position: relative;
+  min-height: 500px;
+  background-color: $main_bg; }
 
-#banner-ad {
-  background: $page_background; }
+#nav {
+  background-color: $nav_bg; }
 
-.banner-ad {
+.navigation {
   @include center-layout;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  background-color: $banner_bg; }
+  height: 20px;
+  color: $nav_txt;
+  position: relative;
+  font-size: 16px;
+  text-align: left;
+  background-color: $nav_bg;
+  a {
+    color: $nav_link; } }
 
 #footer {
   background: $page_background; }
 
 .footer {
-  @include center-layout;
   text-align: center;
-  background: $footer_bg;
-  color: $footer_text;
+  background: $page_background;
+  color: $footer_link;
   a {
-    font-size: 10px;
-    color: $footer_text; }}
+    color: $footer_link; }}
+
+.gminer-logo {}
+
+.mcw-logo, .ncbo-logo {
+  margin-left: 50px; }
+
+#user {
+  position: absolute;
+  z-index: 5;
+  top: 10px;
+  right: 10px; }
+
+#help {
+  position: absolute;
+  z-index: 5;
+  top: 5px;
+  right: 10px;
+  top: 45px; }
