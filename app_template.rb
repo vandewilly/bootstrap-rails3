@@ -14,7 +14,7 @@ gem 'warden'
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'oauth2'
-gem 'will_paginate', '3.0.beta'
+gem 'will_paginate', '~> 3.0.beta'
 gem 'jammit', :git => 'https://github.com/documentcloud/jammit.git'
 
 gem 'simple_form'
