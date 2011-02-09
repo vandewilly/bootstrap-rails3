@@ -1,8 +1,16 @@
 #flash-messages {
-  margin-bottom: 1em; }
+  position: absolute;
+  width: 950px;
+  display: none;
+  top: 0px;
+  margin: 0;
+  padding: 0;
+  color: #000;
+  text-align: center;
+  z-index: 100; }
 
 .notice, .success, .warning, .validation, .alert {
-  font-family: $arial;
+  font-family: $droid;
   font-size: 13px;
   border: 1px solid;
   padding: 15px 10px 15px 50px;

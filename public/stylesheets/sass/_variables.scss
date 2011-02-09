@@ -1,22 +1,45 @@
-$page_background: #5282a6;
-$link: #000;
-$header_bg: #fff;
-$nav_bg: #222526;
-$nav_link: #fff;
+$page_background: #5282A6;
+
+$txt: #000;
+$light_txt: #fff;
+
+$dark_bg: #5282A6;
+$light_bg: #fff;
+
+$light_link: #fff;
+$link: #093844;
+$page_title: #093844;
+$section_title: #093844;
+$header_bg: #ddd;
 $main_bg: #fff;
+$banner_bg: #555;
+
+$nav_text: #000;
+$nav_link: #000;
+$nav_link_bg: #fff;
+$nav_bg: #fff;
+$admin_link_bg: #f77;
+$admin_hover_bg: #f33;
 
 $footer_text: #fff;
+$footer_bg: #20262b;
+
+$form_box_bg: #80a894;
+$form_box_border: #52736b;
 
 $help_bg: #eef3dc;
 $help_txt: #000;
 
+$tab_inactive_bg: #80a894;
+$tab_active_bg: #52736b;
+
 $success: #e5f2cf;
-$notice: #e8eaff;
+$notice: #c4d8f4;
 $error: #ffeae8;
 
 $pagination_bg: #fff;
 $pagination_disabled_fg: #999;
-$pagination_current_bg: #007a74;
+$pagination_current_bg: #093844;
 $pagination_current_fg: #fff;
 
 $row_header_bg: #000;

@@ -1,32 +1,30 @@
 !!!
-%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+%html.no-js{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
   %head
     = csrf_meta_tag
     %meta{ :content => "text/html; charset=iso-8859-1", "http-equiv" => "Content-Type" }
     %title
       = h(yield(:title) || "APP_NAME")
-    = raw(include_stylesheets(:common, :media => 'all'))
-    - admin_only do
-      = raw(include_stylesheets(:admin, :media => 'all'))
     = yield(:head)
-  %body#doc
-    #hd
+    = render(:partial => "shared/tracking.html.haml") if Rails.env.production?
+    = render(:partial => "layouts/javascripts.html.haml")
+    = render(:partial => "layouts/css.html.haml")
+  %body
+    #header
       = render(:partial => "shared/header.html.haml")
-    #navigation.rounded
+    #nav
       = render(:partial => "shared/navigation.html.haml")
-      = render(:partial => "shared/user.html.haml")
-    #main.rounded
-      #loading
-        = image_tag('layout/loading.gif', :alt => "Loading...")
-      #flash-messages
-        = raw(flash_messages)
-      = yield
-    #ft
+    #content
+      .main
+        #loading
+          = image_tag('layout/loading.gif', :alt => "Loading...")
+        .grid-container
+          .grid_24
+            #flash-messages
+              = raw(flash_messages)
+        = yield
+      .clear
+    #footer
       = render(:partial => "shared/footer.html.haml")
     %iframe{ :src => "about:blank", :style => "height:0px;width:0px;visibility:hidden" }
       this frame prevents back forward cache
-    = render(:partial => "shared/tracking.html.haml") if Rails.env.production?
-    %script{:src => "http://cdn.jquerytools.org/1.2.5/jquery.tools.min.js"}
-    = raw(include_javascripts(:common))
-    - admin_only do
-      = raw(include_javascripts(:admin))

@@ -1,9 +1,6 @@
 .pagination {
-  margin-top: 10px;
   background: $pagination_bg;
   position: relative;
-  left: 25%;
-  width: 50%;
   /* self-clearing method: */
   a, span, em {
     padding: 3px 6px;
@@ -36,7 +33,6 @@
     background: $pagination_current_bg;
     color: $pagination_current_fg;
     padding: 4px 6px;
-    width: 30em;
     margin-bottom: 3px;
     text-align: center;
     b {
