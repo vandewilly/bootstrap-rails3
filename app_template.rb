@@ -9,6 +9,7 @@ end
 
 gem 'haml'
 gem 'haml-rails', :git => 'https://github.com/indirect/haml-rails.git'
+gem 'mysql2'
 gem 'warden'
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 gem 'bcrypt-ruby', :require => 'bcrypt'
@@ -17,6 +18,7 @@ gem 'will_paginate', '3.0.beta'
 gem 'jammit', :git => 'https://github.com/documentcloud/jammit.git'
 
 gem 'simple_form'
+gem 'uuidtools'
 
 gem "capybara", :git => "https://github.com/jnicklas/capybara.git", :group => [:test, :cucumber]
 gem 'database_cleaner', :group => [:test, :cucumber]
@@ -43,6 +45,7 @@ GENERATORS
 application generators
 
 #download javascript
+get "http://code.jquery.com/jquery-1.5.js", "public/javascripts/jquery/jquery.js"
 get "https://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"

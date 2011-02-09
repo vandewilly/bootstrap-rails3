@@ -5,6 +5,7 @@ javascripts:
   common:
     - public/javascripts/lib/modernizr.js
     - public/javascripts/lib/webfonts.js
+    - public/javascripts/jquery/jquery.js
     - public/javascripts/jquery/jquery.blockUI.js
     - public/javascripts/lib/underscore.js
     - public/javascripts/lib/rails.js
