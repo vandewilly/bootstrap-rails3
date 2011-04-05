@@ -18,10 +18,6 @@
       .main
         #loading
           = image_tag('layout/loading.gif', :alt => "Loading...")
-        .grid-container
-          .grid_24
-            #flash-messages
-              = raw(flash_messages)
         = yield
       .clear
     #footer

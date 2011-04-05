@@ -66,7 +66,8 @@ img {
   background: $page_background; }
 
 .footer {
-  text-align: center;
+  @include center-layout;
+  text-align: right;
   background: $page_background;
   color: $footer_link;
   a {
