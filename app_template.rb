@@ -8,19 +8,19 @@ end
 # Gems, listed in alpha order
 
 gem 'haml'
-gem 'haml-rails', :git => 'https://github.com/indirect/haml-rails.git'
+gem 'haml-rails'
 gem 'mysql2'
 gem 'warden'
-gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
+gem 'devise'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'oauth2'
-gem 'will_paginate', '~> 3.0.beta'
-gem 'jammit', :git => 'https://github.com/documentcloud/jammit.git'
+gem 'jammit'
 
+gem 'kaminari'
 gem 'simple_form'
 gem 'uuidtools'
 
-gem "capybara", :git => "https://github.com/jnicklas/capybara.git", :group => [:test, :cucumber]
+gem "capybara", :group => [:test, :cucumber]
 gem 'database_cleaner', :group => [:test, :cucumber]
 gem 'cucumber-rails', :group => [:test, :cucumber]
 gem 'cucumber', :group => [:test, :cucumber]
@@ -45,26 +45,24 @@ GENERATORS
 application generators
 
 #download javascript
-get "http://code.jquery.com/jquery-1.5.js", "public/javascripts/jquery/jquery.js"
-get "https://github.com/jgeiger/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
+get "http://code.jquery.com/jquery-1.5.1.js", "public/javascripts/jquery/jquery.js"
+get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
+get "https://github.com/nathansmith/formalize/blob/master/assets/javascripts/jquery.formalize.js", "public/javascripts/jquery/jquery.formalize.js"
 get "http://www.modernizr.com/downloadfulljs/", "public/javascripts/lib/modernizr.js"
 get "#{repository_url}/public/javascripts/lib/webfonts.js", "public/javascripts/lib/webfonts.js"
 
 remove_file "public/javascripts/application.js"
 get "#{repository_url}/public/javascripts/application.js", "public/javascripts/application.js"
 
-# download css
-['reset', 'fonts', 'base'].each do |file|
-  get "http://yui.yahooapis.com/3.2.0/build/css#{file}/#{file}.css", "public/stylesheets/yui/#{file}.css"
-end
-
-['application', '_colors', '_flash_messages', '_fonts', '_forms', '_grid', '_layout', '_pagination', '_template', '_variables'].each do |file|
+['application', '_colors', '_flash_messages', '_fonts', '_forms', '_formalize', '_grid', '_layout', '_template', '_variables'].each do |file|
   get "#{repository_url}/public/stylesheets/sass/#{file}.scss", "public/stylesheets/sass/#{file}.scss"
 end
 
 # download images
+get "https://github.com/nathansmith/formalize/blob/master/assets/images/button.png", "public/images/layout/button.png"
+get "https://github.com/nathansmith/formalize/blob/master/assets/images/select_arrow.gif", "public/images/layout/select_arrow.gif"
 get "#{repository_url}/public/images/layout/loading.gif", "public/images/layout/loading.gif"
 ['icons/success', 'icons/warning', 'icons/notice', 'icons/error', 'layout/logo'].each do |img|
   get "#{repository_url}/public/images/#{img}.png", "public/images/#{img}.png"
@@ -107,16 +105,9 @@ gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
   get "#{repository_url}/app/views/#{page}.html.haml", "app/views/#{page}.html.haml"
 end
 
-# download devise views
-['confirmations/new', 'mailer/confirmation_instructions', 'mailer/reset_password_instructions', 'mailer/unlock_instructions',
- 'passwords/edit', 'passwords/new', 'registrations/edit', 'registrations/new', 'sessions/new', 'shared/_links', 'unlocks/new'].each do |devise|
-   get "#{repository_url}/app/views/devise/#{devise}.html.haml", "app/views/devise/#{devise}.html.haml"
-end
-gsub_file 'app/views/devise/mailer/confirmation_instructions.html.haml', 'APP_NAME', "#{app_name}"
-
 # download helpers
 remove_file "app/helpers/application_helper.rb"
-['application', 'pages', 'users', 'layout'].each do |helper|
+['application', 'layout'].each do |helper|
   get "#{repository_url}/app/helpers/#{helper}_helper.rb", "app/helpers/#{helper}_helper.rb"
 end
 

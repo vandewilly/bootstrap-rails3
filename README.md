@@ -21,7 +21,6 @@ Gems
 
 * [haml](http://haml-lang.com/)
 * [devise](http://github.com/plataformatec/devise)
-* [will_paginate](http://github.com/mislav/will_paginate)
 * [jammit](http://documentcloud.github.com/jammit/)
 * [simple_form](http://github.com/plataformatec/simple_form)
 * [capybara](http://github.com/jnicklas/capybara)

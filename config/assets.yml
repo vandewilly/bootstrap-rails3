@@ -7,14 +7,12 @@ javascripts:
     - public/javascripts/lib/webfonts.js
     - public/javascripts/jquery/jquery.js
     - public/javascripts/jquery/jquery.blockUI.js
+    - public/javascripts/jquery/jquery.formalize.js
     - public/javascripts/lib/underscore.js
     - public/javascripts/lib/rails.js
     - public/javascripts/application.js
   admin:
 stylesheets:
   common:
-    - public/stylesheets/yui/reset.css
-    - public/stylesheets/yui/fonts.css
-    - public/stylesheets/yui/base.css
     - public/stylesheets/application.css
   admin:
