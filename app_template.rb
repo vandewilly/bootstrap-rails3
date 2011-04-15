@@ -9,7 +9,7 @@ end
 
 gem 'haml'
 gem 'haml-rails'
-gem 'mysql2'
+
 gem 'warden'
 gem 'devise'
 gem 'bcrypt-ruby', :require => 'bcrypt'
@@ -45,11 +45,11 @@ GENERATORS
 application generators
 
 #download javascript
-get "http://code.jquery.com/jquery-1.5.1.js", "public/javascripts/jquery/jquery.js"
+get "http://code.jquery.com/jquery-1.5.2.js", "public/javascripts/jquery/jquery.js"
 get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
 get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
 get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
-get "https://github.com/nathansmith/formalize/raw/master/assets/javascripts/jquery.formalize.js", "public/javascripts/jquery/jquery.formalize.js"
+get "https://github.com/nathansmith/formalize/raw/master/assets/js/jquery.formalize.js", "public/javascripts/jquery/jquery.formalize.js"
 get "http://www.modernizr.com/downloadfulljs/", "public/javascripts/lib/modernizr.js"
 get "#{repository_url}/public/javascripts/lib/webfonts.js", "public/javascripts/lib/webfonts.js"
 
