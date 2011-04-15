@@ -56,7 +56,7 @@ get "#{repository_url}/public/javascripts/lib/webfonts.js", "public/javascripts/
 remove_file "public/javascripts/application.js"
 get "#{repository_url}/public/javascripts/application.js", "public/javascripts/application.js"
 
-['application', '_colors', '_flash_messages', '_fonts', '_forms', '_formalize', '_grid', '_layout', '_template', '_variables'].each do |file|
+['application', '_flash_messages', '_fonts', '_forms', '_formalize', '_grid', '_layout', '_template', '_variables'].each do |file|
   get "#{repository_url}/public/stylesheets/sass/#{file}.scss", "public/stylesheets/sass/#{file}.scss"
 end
 
