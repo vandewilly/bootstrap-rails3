@@ -2,7 +2,7 @@ namespace :deploy do
 
   desc "expand the gems"
   task :gems, :roles => :web, :except => { :no_release => true } do
-    run "cd #{current_path}; bundle install --deployment --without test development cucumber"
+    run "cd #{current_path}; bundle install --gemfile Gemfile --deployment --without cucumber development test"
   end
 
   desc 'Compile, bundle and minify the JS and CSS files'
