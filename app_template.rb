@@ -45,6 +45,8 @@ GENERATORS
 
 application generators
 
+gsub_file 'Gemfile', "'mysql2'", "'mysql2', '~> 0.2.7'"
+
 #download javascript
 get "http://code.jquery.com/jquery-1.5.2.js", "public/javascripts/jquery/jquery.js"
 get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
