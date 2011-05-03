@@ -7,6 +7,7 @@ end
 
 # Gems, listed in alpha order
 
+gem 'sass'
 gem 'haml'
 gem 'haml-rails'
 
