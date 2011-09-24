@@ -169,10 +169,12 @@ git :commit => "-m 'install simple_form'"
 run("bundle exec rake db:create:all")
 run("bundle exec rails generate devise:install")
 gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
+gsub_file 'config/initializers/devise.rb', 'config.sign_out_via = :delete', "config.sign_out_via = Rails.env.test? ? :get : :delete"
 route("devise_for :users")
 inject_into_file "config/environments/test.rb", "  config.action_mailer.default_url_options = { :host => 'local.#{app_name}.com' }\n", :after => "delivery_method = :test\n"
 inject_into_file "config/environments/development.rb", "  config.action_mailer.default_url_options = { :host => 'local.#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
 inject_into_file "config/environments/production.rb", "  config.action_mailer.default_url_options = { :host => '#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
+
 git :add => "."
 git :commit => "-m 'install devise'"
 

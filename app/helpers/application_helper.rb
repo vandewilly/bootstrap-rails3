@@ -19,7 +19,7 @@ module ApplicationHelper
 
   def login_logout
     if user_signed_in?
-      link_to(t('link.sign-out'), destroy_user_session_url, :confirm => t('confirm.areyousure'))
+      link_to(t('link.sign-out'), destroy_user_session_url, :method=>'delete', :confirm => t('confirm.areyousure'))
     else
       content_tag(:div, link_to(t('link.sign-in'), new_user_session_url)+" - "+link_to(t('link.sign-up'), new_registration_url(User)), :class => 'login-box')
     end
