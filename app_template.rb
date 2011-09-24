@@ -1,13 +1,12 @@
 repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/master"
 
 # Remove normal files we don't want
-%w(README public/index.html public/favicon.ico public/robots.txt public/images/rails.png).each do |f|
+%w(README public/index.html public/favicon.ico public/robots.txt app/assets/images/rails.png).each do |f|
   remove_file f
 end
 
 # Gems, listed in alpha order
 
-gem 'sass'
 gem 'haml'
 gem 'haml-rails'
 
@@ -15,7 +14,6 @@ gem 'warden'
 gem 'devise'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'oauth2'
-gem 'jammit'
 
 gem 'kaminari'
 gem 'simple_form'
@@ -28,7 +26,7 @@ gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.5.0', :group => [:test, :cucumber]
+gem 'rspec', '>= 2.6.0', :group => [:test, :cucumber]
 gem 'rspec-rails', '>= 2.5.0', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
 gem 'fakeweb', :group => [:test, :cucumber]
@@ -45,36 +43,33 @@ GENERATORS
 
 application generators
 
-gsub_file 'Gemfile', "'mysql2'", "'mysql2', '~> 0.2.7'"
-
 #download javascript
-get "http://code.jquery.com/jquery-1.6.js", "public/javascripts/jquery/jquery.js"
-get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "public/javascripts/jquery/jquery.blockUI.js"
-get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "public/javascripts/lib/underscore.js"
-get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "public/javascripts/lib/rails.js"
-get "https://github.com/nathansmith/formalize/raw/master/assets/js/jquery.formalize.js", "public/javascripts/jquery/jquery.formalize.js"
-get "http://www.modernizr.com/downloadfulljs/", "public/javascripts/lib/modernizr.js"
-get "#{repository_url}/public/javascripts/lib/webfonts.js", "public/javascripts/lib/webfonts.js"
+get "http://code.jquery.com/jquery-1.6.4.js", "app/assets/javascripts/jquery/jquery.js"
+get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "app/assets/javascripts/jquery/jquery.blockUI.js"
+get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "app/assets/javascripts/lib/underscore.js"
+get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "app/assets/javascripts/lib/rails.js"
+get "https://github.com/nathansmith/formalize/raw/master/assets/js/jquery.formalize.js", "app/assets/javascripts/jquery/jquery.formalize.js"
+get "http://www.modernizr.com/downloadfulljs/", "app/assets/javascripts/lib/modernizr.js"
+get "#{repository_url}/app/assets/javascripts/lib/webfonts.js", "app/assets/javascripts/lib/webfonts.js"
 
-remove_file "public/javascripts/application.js"
-get "#{repository_url}/public/javascripts/application.js", "public/javascripts/application.js"
+get "#{repository_url}/app/assets/javascripts/main.js", "app/assets/javascripts/main.js"
 
 ['application', '_flash_messages', '_fonts', '_forms', '_formalize', '_grid', '_layout', '_template', '_variables'].each do |file|
-  get "#{repository_url}/public/stylesheets/sass/#{file}.scss", "public/stylesheets/sass/#{file}.scss"
+  get "#{repository_url}/app/assets/stylesheets/sass/#{file}.scss", "app/assets/stylesheets/sass/#{file}.scss"
 end
 
 # download images
-get "https://github.com/nathansmith/formalize/blob/master/assets/images/button.png", "public/images/layout/button.png"
-get "https://github.com/nathansmith/formalize/blob/master/assets/images/select_arrow.gif", "public/images/layout/select_arrow.gif"
-get "#{repository_url}/public/images/layout/loading.gif", "public/images/layout/loading.gif"
+get "https://github.com/nathansmith/formalize/blob/master/assets/images/button.png", "app/assets/images/layout/button.png"
+get "https://github.com/nathansmith/formalize/blob/master/assets/images/select_arrow.gif", "app/assets/images/layout/select_arrow.gif"
+get "#{repository_url}/app/assets/images/layout/loading.gif", "app/assets/images/layout/loading.gif"
 ['icons/success', 'icons/warning', 'icons/notice', 'icons/error', 'layout/logo'].each do |img|
-  get "#{repository_url}/public/images/#{img}.png", "public/images/#{img}.png"
+  get "#{repository_url}/app/assets/images/#{img}.png", "app/assets/images/#{img}.png"
 end
 
 # download config
 remove_file "config/routes.rb"
 remove_file "config/locales/en.yml"
-['assets.yml', 'locales/en.yml', 'routes.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
+['locales/en.yml', 'routes.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
 get "#{repository_url}/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
