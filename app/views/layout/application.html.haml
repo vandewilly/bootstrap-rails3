@@ -7,8 +7,9 @@
       = h(yield(:title) || "APP_NAME")
     = yield(:head)
     = render(:partial => "shared/tracking.html.haml") if Rails.env.production?
-    = render(:partial => "layouts/javascripts.html.haml")
-    = render(:partial => "layouts/css.html.haml")
+    = stylesheet_link_tag("application")
+    = javascript_include_tag("application")
+
   %body
     #header
       = render(:partial => "shared/header.html.haml")
