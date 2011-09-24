@@ -49,7 +49,7 @@ get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "app/asset
 get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "app/assets/javascripts/lib/underscore.js"
 get "https://github.com/rails/jquery-ujs/raw/master/src/rails.js", "app/assets/javascripts/lib/rails.js"
 get "https://github.com/nathansmith/formalize/raw/master/assets/js/jquery.formalize.js", "app/assets/javascripts/jquery/jquery.formalize.js"
-get "http://www.modernizr.com/downloadfulljs/", "app/assets/javascripts/lib/modernizr.js"
+get "http://www.modernizr.com/downloads/modernizr-2.0.6.js", "app/assets/javascripts/lib/modernizr.js"
 get "#{repository_url}/app/assets/javascripts/lib/webfonts.js", "app/assets/javascripts/lib/webfonts.js"
 
 get "#{repository_url}/app/assets/javascripts/main.js", "app/assets/javascripts/main.js"
