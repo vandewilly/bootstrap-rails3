@@ -52,8 +52,10 @@ get "#{repository_url}/app/assets/javascripts/lib/webfonts.js", "app/assets/java
 
 get "#{repository_url}/app/assets/javascripts/main.js", "app/assets/javascripts/main.js"
 
-['application', '_flash_messages', '_fonts', '_forms', '_formalize', '_grid', '_layout', '_template', '_variables'].each do |file|
-  get "#{repository_url}/app/assets/stylesheets/sass/#{file}.scss", "app/assets/stylesheets/sass/#{file}.scss"
+remove_file "app/assets/stylesheets/application.css"
+get "#{repository_url}/app/assets/stylesheets/application.css.scss", "app/assets/stylesheets/application.css.scss"
+['_flash_messages', '_fonts', '_forms', '_formalize', '_grid', '_layout', '_template', '_pagination', '_variables'].each do |file|
+  get "#{repository_url}/app/assets/stylesheets/partials/#{file}.css.scss", "app/assets/stylesheets/partials/#{file}.css.scss"
 end
 
 # download images
