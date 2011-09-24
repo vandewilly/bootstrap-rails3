@@ -7,6 +7,7 @@
       = h(yield(:title) || "APP_NAME")
     = yield(:head)
     = render(:partial => "shared/tracking.html.haml") if Rails.env.production?
+    %script{:src => "http://www.google.com/jsapi"}
     = stylesheet_link_tag("application")
     = javascript_include_tag("application")
 
