@@ -27,7 +27,7 @@ gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
 gem 'rspec', '>= 2.6.0', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.5.0', :group => [:development, :test, :cucumber]
+gem 'rspec-rails', '>= 2.6.0', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
 gem 'fakeweb', :group => [:test, :cucumber]
 gem 'rest-client', :group => [:test, :cucumber]
@@ -87,8 +87,6 @@ gsub_file 'config/database.yml', 'password:', "password: #{password}"
 # download views
 remove_file "app/views/layouts/application.html.erb"
 get "#{repository_url}/app/views/layout/application.html.haml", "app/views/layouts/application.html.haml"
-get "#{repository_url}/app/views/layout/_css.html.haml", "app/views/layouts/_css.html.haml"
-get "#{repository_url}/app/views/layout/_javascripts.html.haml", "app/views/layouts/_javascripts.html.haml"
 gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 
 ['_header', '_footer', '_navigation', '_tracking', '_pagination', '_pagination_links', '_user'].each do |shared|
