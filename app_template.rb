@@ -18,6 +18,8 @@ gem 'oauth2'
 gem 'kaminari'
 gem 'simple_form'
 gem 'uuidtools'
+gem 'bundler'
+gem 'bundler-ext'
 
 gem "capybara", :group => [:test, :cucumber]
 gem 'database_cleaner', :group => [:test, :cucumber]
