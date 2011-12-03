@@ -1,4 +1,4 @@
-repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/master"
+repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/noauth"
 
 # Remove normal files we don't want
 %w(README public/index.html public/favicon.ico public/robots.txt app/assets/images/rails.png).each do |f|
@@ -23,8 +23,8 @@ gem 'cucumber', :group => [:test, :cucumber]
 gem 'spork', :group => [:test, :cucumber]
 gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
 gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.6.0', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.6.0', :group => [:development, :test, :cucumber]
+gem 'rspec', '>= 2.7.0', :group => [:test, :cucumber]
+gem 'rspec-rails', '>= 2.7.0', :group => [:development, :test, :cucumber]
 gem 'factory_girl_rails', :group => [:test, :cucumber]
 gem 'fakeweb', :group => [:test, :cucumber]
 gem 'rest-client', :group => [:test, :cucumber]
@@ -171,22 +171,10 @@ run("bundle exec rails generate cucumber:install --rspec --capybara")
 git :add => "."
 git :commit => "-m 'install cucumber'"
 
-['confirmation', 'forgot_password','pages','session','signup'].each do |feature|
-  get "#{repository_url}/features/#{feature}.feature", "features/#{feature}.feature"
-end
-get "#{repository_url}/features/step_definitions/authentication_steps.rb", "features/step_definitions/authentication_steps.rb"
-remove_file "features/support/paths.rb"
-get "#{repository_url}/features/support/paths.rb", "features/support/paths.rb"
-get "#{repository_url}/features/support/db_cleaner.rb", "features/support/db_cleaner.rb"
-inject_into_file "features/support/env.rb", "Capybara.ignore_hidden_elements = false\n", :after => "Capybara.default_selector = :css\n"
-append_file "features/support/env.rb", "FakeWeb.allow_net_connect = %r[^https?://(localhost|127\.0\.0\.1)]\n"
-git :add => "."
-git :commit => "-m 'default feature and steps'"
-
 # download deploy scripts
 get "#{repository_url}/config/deploy.rb", "config/deploy.rb"
 get "#{repository_url}/Capfile", "Capfile"
-['callbacks', 'development', 'git', 'maintenance', 'passenger', 'production', 'settings', 'symlinks'].each do |deploy|
+['callbacks', 'development', 'git', 'passenger', 'production', 'settings', 'symlinks'].each do |deploy|
   get "#{repository_url}/config/deploy/#{deploy}.rb", "config/deploy/#{deploy}.rb"
 end
 gsub_file 'config/deploy/settings.rb', 'APP_NAME', "#{app_name}"
