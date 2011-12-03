@@ -10,11 +10,6 @@ end
 gem 'haml'
 gem 'haml-rails'
 
-gem 'warden'
-gem 'devise'
-gem 'bcrypt-ruby', :require => 'bcrypt'
-gem 'oauth2'
-
 gem 'kaminari'
 gem 'simple_form'
 gem 'uuidtools'
@@ -74,7 +69,6 @@ remove_file "config/locales/en.yml"
 ['locales/en.yml', 'routes.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
-get "#{repository_url}/db/migrate/001_devise_create_users.rb", "db/migrate/001_devise_create_users.rb"
 
 
 # fix configs
@@ -93,13 +87,13 @@ remove_file "app/views/layouts/application.html.erb"
 get "#{repository_url}/app/views/layout/application.html.haml", "app/views/layouts/application.html.haml"
 gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 
-['_header', '_footer', '_navigation', '_tracking', '_pagination', '_pagination_links', '_user'].each do |shared|
+['_header', '_footer', '_navigation', '_tracking', '_pagination', '_pagination_links'].each do |shared|
   get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
-['pages/home', 'users/show'].each do |page|
+['pages/home'].each do |page|
   get "#{repository_url}/app/views/#{page}.html.haml", "app/views/#{page}.html.haml"
 end
 
@@ -110,13 +104,8 @@ remove_file "app/helpers/application_helper.rb"
 end
 
 # download controllers
-['pages', 'users'].each do |controller|
+['pages'].each do |controller|
   get "#{repository_url}/app/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
-end
-
-# download models
-['user'].each do |model|
-  get "#{repository_url}/app/models/#{model}.rb", "app/models/#{model}.rb"
 end
 
 create_file "log/.gitkeep"
@@ -169,17 +158,6 @@ git :add => "."
 git :commit => "-m 'install simple_form'"
 
 run("bundle exec rake db:create:all")
-run("bundle exec rails generate devise:install")
-gsub_file 'config/initializers/devise.rb', 'please-change-me@config-initializers-devise.com', "admin@#{app_name}.com"
-gsub_file 'config/initializers/devise.rb', 'config.sign_out_via = :delete', "config.sign_out_via = Rails.env.test? ? :get : :delete"
-route("devise_for :users")
-inject_into_file "config/environments/test.rb", "  config.action_mailer.default_url_options = { :host => 'local.#{app_name}.com' }\n", :after => "delivery_method = :test\n"
-inject_into_file "config/environments/development.rb", "  config.action_mailer.default_url_options = { :host => 'local.#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
-inject_into_file "config/environments/production.rb", "  config.action_mailer.default_url_options = { :host => '#{app_name}.com' }\n", :after => "raise_delivery_errors = false\n"
-
-git :add => "."
-git :commit => "-m 'install devise'"
-
 run("bundle exec rake db:migrate")
 run("bundle exec rails generate rspec:install")
 git :add => "."
@@ -221,7 +199,6 @@ We just ran
 gem install bundler capistrano
 bundle install
 bundle exec rake db:create:all
-bundle exec rails generate devise:install
 bundle exec rake db:migrate
 bundle exec rails generate rspec:install
 bundle exec rails generate cucumber:install --rspec --capybara
@@ -229,8 +206,6 @@ bundle exec rails generate cucumber:install --rspec --capybara
 Run the following commands to complete the setup of #{app_name.classify}:
 
 cd #{app_name}
-
-Change 'config/initializers/devise.rb' to have the proper email address for your mailer.
 
 DOCS
 

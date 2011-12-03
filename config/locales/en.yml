@@ -10,19 +10,6 @@ en:
   confirm:
     areyousure: Are you sure?
 
-  flash:
-    users:
-      create:
-        notice: "User successfully created."
-      update:
-        notice: "User successfully updated."
-      destroy:
-        notice: "User successfully deleted."
-
-  users:
-    show:
-      title: User Dashboard
-
   pages:
     home:
       welcome: Welcome to APP_NAME

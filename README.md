@@ -20,8 +20,6 @@ Gems
 ----
 
 * [haml](http://haml-lang.com/)
-* [devise](http://github.com/plataformatec/devise)
-* [jammit](http://documentcloud.github.com/jammit/)
 * [simple_form](http://github.com/plataformatec/simple_form)
 * [capybara](http://github.com/jnicklas/capybara)
 * [cucumber](http://cukes.info/)

@@ -3,28 +3,6 @@ module ApplicationHelper
 
   FLASH_NOTICE_KEYS = [:success, :notice, :warning, :failure, :invalid, :alert, :unauthenticated, :unconfirmed, :invalid_token, :timeout, :inactive, :locked]
 
-  def admin?
-    !current_user.blank? && current_user.admin?
-  end
-
-  def admin_only(&block)
-    if !current_user.blank? && current_user.admin?
-      block.call
-    end
-  end
-
-  def me?(user)
-    user == current_user
-  end
-
-  def login_logout
-    if user_signed_in?
-      link_to(t('link.sign-out'), destroy_user_session_url, :method=>'delete', :confirm => t('confirm.areyousure'))
-    else
-      content_tag(:div, link_to(t('link.sign-in'), new_user_session_url)+" - "+link_to(t('link.sign-up'), new_registration_url(User)), :class => 'login-box')
-    end
-  end
-
   def flash_messages
     return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
     formatted_messages = messages.map do |type|

@@ -1,8 +1,0 @@
-- title t('.title')
-= page_title(t('.title'))
-.form-box
-  - if me?(@user)
-    %br
-    == Email: #{@user.email}
-    %br
-    = link_to("edit", edit_user_registration_url)
