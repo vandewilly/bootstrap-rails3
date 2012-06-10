@@ -99,7 +99,7 @@ end
 # download views
 remove_file "app/views/layouts/application.html.erb"
 
-['layout/application', 'pages/home', 'sessions/new', 'users/dashboard'].each do |view_file|
+['layouts/application', 'pages/home', 'sessions/new', 'users/dashboard'].each do |view_file|
   get "#{repository_url}/app/views/#{view_file}.html.haml", "app/views/#{view_file}.html.haml"
 end
 
@@ -107,7 +107,7 @@ end
   get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 
-gsub_file 'app/views/layout/application.html.haml', 'APP_NAME', "#{app_name}"
+gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
