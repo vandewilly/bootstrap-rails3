@@ -17,6 +17,8 @@ gem 'uuidtools'
 gem 'capistrano'
 gem 'capistrano-ext'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
 
 gem "debugger", :group => [:test, :development]
 gem "pry", :group => [:test, :development]
