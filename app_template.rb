@@ -8,27 +8,29 @@ end
 # Gems, listed in alpha order
 
 gem 'haml'
-gem 'haml-rails'
 
 gem 'kaminari'
 gem 'simple_form'
+gem "zurb-foundation"
+
 gem 'uuidtools'
 gem 'capistrano'
 gem 'capistrano-ext'
 
-gem "capybara", :group => [:test, :cucumber]
-gem 'database_cleaner', :group => [:test, :cucumber]
-gem 'cucumber-rails', :group => [:test, :cucumber]
-gem 'cucumber', :group => [:test, :cucumber]
-gem 'spork', :group => [:test, :cucumber]
-gem 'launchy', :group => [:test, :cucumber]    # So you can do Then show me the page
-gem 'webrat', :group => [:test, :cucumber]
-gem 'rspec', '>= 2.8.0', :group => [:test, :cucumber]
-gem 'rspec-rails', '>= 2.8.1', :group => [:development, :test, :cucumber]
-gem 'factory_girl', :group => [:test, :cucumber]
-gem 'fakeweb', :group => [:test, :cucumber]
-gem 'rest-client', :group => [:test, :cucumber]
-gem 'simplecov', :group => [:test, :cucumber]
+
+gem "debugger", :group => [:test, :development]
+gem "pry", :group => [:test, :development]
+gem "faker", :group => [:test, :development]
+gem "haml-rails", :group => [:test, :development]
+gem 'rspec-rails', :group => [:development, :test]
+gem 'cucumber-rails', :group => [:development, :test]
+gem "capybara", :group => [:test, :development]
+gem 'database_cleaner', :group => [:test, :development]
+gem 'launchy', :group => [:test, :development]    # So you can do Then show me the page
+gem 'factory_girl_rails', :group => [:test, :development]
+gem 'fakeweb', :group => [:test, :development]
+gem 'rest-client', :group => [:test, :development]
+gem 'simplecov', :group => [:test, :development]
 
 generators = <<-GENERATORS
 
