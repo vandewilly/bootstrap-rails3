@@ -1,7 +1,7 @@
-repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/noauth"
+repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/master"
 
 # Remove normal files we don't want
-%w(README public/index.html public/favicon.ico public/robots.txt app/assets/images/rails.png).each do |f|
+%w(README public/index.html public/favicon.ico public/robots.txt app/assets/images/rails.png app/assets/javascripts/application.js app/controllers/application_controller.rb).each do |f|
   remove_file f
 end
 
@@ -10,7 +10,6 @@ end
 gem 'haml'
 
 gem 'kaminari'
-gem 'simple_form'
 gem "zurb-foundation"
 
 gem 'uuidtools'
@@ -25,7 +24,7 @@ gem "pry", :group => [:test, :development]
 gem "faker", :group => [:test, :development]
 gem "haml-rails", :group => [:test, :development]
 gem 'rspec-rails', :group => [:development, :test]
-gem 'cucumber-rails', :group => [:development, :test]
+gem 'cucumber-rails', :group => [:test]
 gem "capybara", :group => [:test, :development]
 gem 'database_cleaner', :group => [:test, :development]
 gem 'launchy', :group => [:test, :development]    # So you can do Then show me the page
@@ -108,7 +107,7 @@ end
   get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 
-gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
+gsub_file 'app/views/layout/application.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
@@ -210,11 +209,6 @@ run("bundle pack")
 git :add => "."
 git :commit => "-m 'add the gems'"
 
-run("bundle exec rails generate simple_form:install")
-gsub_file 'config/initializers/simple_form.rb', ', :error', ""
-git :add => "."
-git :commit => "-m 'install simple_form'"
-
 run("bundle exec rake db:create:all")
 run("bundle exec rake db:migrate")
 run("bundle exec rails generate rspec:install")
@@ -239,7 +233,7 @@ run("bundle exec rails generate cucumber:install --rspec --capybara")
 end
 
 ['base', 'debugging', 'home', 'user'].each do |step_file|
-  get "#{repository_url}/features/step_definitions/#{step_file}.rb", "features/step_definitions/#{step_file}.rb"
+  get "#{repository_url}/features/step_definitions/#{step_file}_steps.rb", "features/step_definitions/#{step_file}_steps.rb"
 end
 
 ['db_cleaner', 'hooks', 'omniauth', 'paths', 'remote_ip_monkey_patch'].each do |support_file|
