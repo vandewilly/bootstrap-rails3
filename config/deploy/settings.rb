@@ -3,7 +3,18 @@
 #############################################################
 
 set :application, 'APP_NAME'
-set :deploy_to, "/www/servers/#{application}"
+set :deploy_to, "/www/#{application}"
+
+#use trunk to deploy to production
+set :branch, "master"
+set :rails_env, "production"
+
+#production
+set :domain, 'domain.host'
+role :app, domain
+role :web, domain
+role :db, domain, :primary => true
+role :worker, domain
 
 #############################################################
 #  Git
@@ -25,20 +36,15 @@ set :user, 'USERNAME'
 default_run_options[:pty] = true
 set :use_sudo, false
 set :ssh_options, {:forward_agent => true}
-set :stages, %w(development production)
-set :default_stage, "development"
+set :current_release, "#{deploy_to}/current"
+set :default_environment, { 'LANG' => 'en_US.UTF-8' }
 
 #############################################################
 #  Includes
 #############################################################
-
-require 'capistrano/ext/multistage'
 
 #############################################################
 #  Post Deploy Hooks
 #############################################################
 
 after  "deploy:update_code", "deploy:write_revision"
-before "deploy:gems", "deploy:symlink"
-after  "deploy:update_code", "deploy:gems"
-after  "deploy:update_code", "deploy:precompile_assets"

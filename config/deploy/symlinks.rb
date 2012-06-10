@@ -1,6 +1,6 @@
 namespace :deploy do
   desc "Make all the symlinks"
-  task :symlink, :roles => :app, :except => { :no_release => true } do
+  task :create_symlink, :roles => :app, :except => { :no_release => true } do
     set :normal_symlinks, %w(public/system config/database.yml config/mail.yml log)
 
     commands = normal_symlinks.map do |path|
@@ -9,7 +9,8 @@ namespace :deploy do
 
     set :weird_symlinks, {
       "#{shared_path}/bundled_gems" => "vendor/bundle",
-      "#{shared_path}/pids" => "tmp/pids"
+      "#{shared_path}/pids" => "tmp/pids",
+      "#{shared_path}/pids" => "tmp/sockets"
     }
 
     commands += weird_symlinks.map do |from, to|

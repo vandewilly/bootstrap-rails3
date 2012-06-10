@@ -10,7 +10,7 @@ namespace :deploy do
   task :setup, :except => { :no_release => true } do
     run "[ -d #{current_path} ] || git clone #{repository} #{current_path}"
     set (:shared_path) { File.join(deploy_to, shared_dir) }
-    set :shared_children, %w(public/system log config bundled_gems pids)
+    set :shared_children, %w(public/system log config bundled_gems pids sockets)
     dirs = [shared_path]
     dirs += shared_children.map { |d| File.join(shared_path, d) }
     run "#{try_sudo} mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod g+w #{dirs.join(' ')}"

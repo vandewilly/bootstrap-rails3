@@ -34,31 +34,6 @@ gem 'fakeweb', :group => [:test, :development]
 gem 'rest-client', :group => [:test, :development]
 gem 'simplecov', :group => [:test, :development]
 
-generators = <<-GENERATORS
-
-  config.generators do |g|
-    g.template_engine :haml
-    g.test_framework :rspec, :fixture => true, :views => false
-  end
-GENERATORS
-
-application generators
-
-#download javascript
-get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "app/assets/javascripts/jquery/jquery.blockUI.js"
-get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "app/assets/javascripts/lib/underscore.js"
-get "https://github.com/nathansmith/formalize/raw/master/assets/js/jquery.formalize.js", "app/assets/javascripts/jquery/jquery.formalize.js"
-get "http://modernizr.com/downloads/modernizr-2.5.3.js", "app/assets/javascripts/lib/modernizr.js"
-get "#{repository_url}/app/assets/javascripts/lib/webfonts.js", "app/assets/javascripts/lib/webfonts.js"
-
-get "#{repository_url}/app/assets/javascripts/main.js", "app/assets/javascripts/main.js"
-
-remove_file "app/assets/stylesheets/application.css"
-get "#{repository_url}/app/assets/stylesheets/application.css.scss", "app/assets/stylesheets/application.css.scss"
-['_flash_messages', '_fonts', '_forms', '_formalize', '_grid', '_layout', '_template', '_pagination', '_variables'].each do |file|
-  get "#{repository_url}/app/assets/stylesheets/partials/#{file}.css.scss", "app/assets/stylesheets/partials/#{file}.css.scss"
-end
-
 # download images
 get "https://github.com/nathansmith/formalize/blob/master/assets/images/button.png", "app/assets/images/layout/button.png"
 get "https://github.com/nathansmith/formalize/blob/master/assets/images/select_arrow.gif", "app/assets/images/layout/select_arrow.gif"
@@ -67,13 +42,33 @@ get "#{repository_url}/app/assets/images/layout/loading.gif", "app/assets/images
   get "#{repository_url}/app/assets/images/#{img}.png", "app/assets/images/#{img}.png"
 end
 
+#download javascript
+get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "app/assets/javascripts/jquery/jquery.blockUI.js"
+get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "app/assets/javascripts/lib/underscore.js"
+get "https://github.com/nathansmith/formalize/raw/master/assets/js/jquery.formalize.js", "app/assets/javascripts/jquery/jquery.formalize.js"
+get "http://modernizr.com/downloads/modernizr-2.5.3.js", "app/assets/javascripts/lib/modernizr.js"
+['lib/webfonts', 'main', 'application'].each do |js_file|
+  get "#{repository_url}/app/assets/javascripts/#{js_file}.js", "app/assets/javascripts/#{js_file}.js"
+end
+
+#download css
+remove_file "app/assets/stylesheets/application.css"
+get "#{repository_url}/app/assets/stylesheets/application.css.scss", "app/assets/stylesheets/application.css.scss"
+['_fonts', '_main'].each do |file|
+  get "#{repository_url}/app/assets/stylesheets/partials/#{file}.css.scss", "app/assets/stylesheets/partials/#{file}.css.scss"
+end
+
 # download config
 remove_file "config/routes.rb"
 remove_file "config/locales/en.yml"
-['locales/en.yml', 'routes.rb', 'initializers/mail.rb', 'mail.yml'].each do |file|
+['locales/en.yml', 'routes.rb', 'initializers/generators.rb', 'initializers/mail.rb', 'initializers/omniauth.rb', 'mail.yml'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
 
+# download migration
+['0001_create_users.rb'].each do |file|
+  get "#{repository_url}/db/migrate/#{file}", "db/migrate/#{file}"
+end
 
 # fix configs
 gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name.classify}"
@@ -86,31 +81,36 @@ puts "Setting database password to #{password}"
 gsub_file 'config/database.yml', 'username: root', "username: #{username}"
 gsub_file 'config/database.yml', 'password:', "password: #{password}"
 
-# download views
-remove_file "app/views/layouts/application.html.erb"
-get "#{repository_url}/app/views/layout/application.html.haml", "app/views/layouts/application.html.haml"
-gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
-
-['_header', '_footer', '_navigation', '_tracking', '_pagination', '_pagination_links'].each do |shared|
-  get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
-end
-gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
-gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
-
-['pages/home'].each do |page|
-  get "#{repository_url}/app/views/#{page}.html.haml", "app/views/#{page}.html.haml"
+# download controllers
+['application', 'pages', 'sessions', 'users'].each do |controller|
+  get "#{repository_url}/app/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
 end
 
 # download helpers
 remove_file "app/helpers/application_helper.rb"
-['application', 'layout'].each do |helper|
+['application'].each do |helper|
   get "#{repository_url}/app/helpers/#{helper}_helper.rb", "app/helpers/#{helper}_helper.rb"
 end
 
-# download controllers
-['pages'].each do |controller|
-  get "#{repository_url}/app/controllers/#{controller}_controller.rb", "app/controllers/#{controller}_controller.rb"
+# download models
+['user'].each do |model|
+  get "#{repository_url}/app/models/#{model}.rb", "app/models/#{model}.rb"
 end
+
+# download views
+remove_file "app/views/layouts/application.html.erb"
+
+['layout/application', 'pages/home', 'sessions/new', 'users/dashboard'].each do |view_file|
+  get "#{repository_url}/app/views/#{view_file}.html.haml", "app/views/#{view_file}.html.haml"
+end
+
+['_header', '_footer', '_tracking', '_pagination', '_pagination_links'].each do |shared|
+  get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
+end
+
+gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
+gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
+gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
@@ -221,24 +221,43 @@ run("bundle exec rails generate rspec:install")
 git :add => "."
 git :commit => "-m 'install rspec'"
 
-get "#{repository_url}/spec/factories.rb", "spec/factories.rb"
+['application', 'pages', 'sessions', 'users'].each do |spec_file|
+  get "#{repository_url}/spec/controllers/#{spec_file}_controller_spec.rb", "spec/controllers/#{spec_file}_controller_sprc.rb"
+end
+
+['factories/users', 'models/user_spec', 'helpers/application_helper_spec', 'views/users/dashboard.haml.html_spec'].each do |spec_file|
+  get "#{repository_url}/spec/#{spec_file}.rb", "spec/#{spec_file}.rb"
+end
+
 git :add => "."
-git :commit => "-m 'install factories'"
+git :commit => "-m 'install specs'"
 
 run("bundle exec rails generate cucumber:install --rspec --capybara")
+
+['home/base.feature'].each do |spec_file|
+  get "#{repository_url}/features/#{spec_file}", "features/#{spec_file}"
+end
+
+['base', 'debugging', 'home', 'user'].each do |step_file|
+  get "#{repository_url}/features/step_definitions/#{step_file}.rb", "features/step_definitions/#{step_file}.rb"
+end
+
+['db_cleaner', 'hooks', 'omniauth', 'paths', 'remote_ip_monkey_patch'].each do |support_file|
+  get "#{repository_url}/features/support/#{support_file}.rb", "features/support/#{support_file}.rb"
+end
+
 git :add => "."
-git :commit => "-m 'install cucumber'"
+git :commit => "-m 'install cucumber and features'"
 
 # download deploy scripts
 get "#{repository_url}/config/deploy.rb", "config/deploy.rb"
 get "#{repository_url}/Capfile", "Capfile"
-['callbacks', 'development', 'git', 'passenger', 'production', 'settings', 'symlinks'].each do |deploy|
+['bundler', 'git', 'passenger', 'settings', 'symlinks'].each do |deploy|
   get "#{repository_url}/config/deploy/#{deploy}.rb", "config/deploy/#{deploy}.rb"
 end
 gsub_file 'config/deploy/settings.rb', 'APP_NAME', "#{app_name}"
 git :add => "."
 git :commit => "-m 'install deploy scripts'"
-
 
 docs = <<-DOCS
 We just ran

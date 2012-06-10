@@ -1,12 +1,20 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  FLASH_NOTICE_KEYS = [:success, :notice, :warning, :failure, :invalid, :alert, :unauthenticated, :unconfirmed, :invalid_token, :timeout, :inactive, :locked]
+  FLASH_NOTICE_KEYS = [:success, :notice, :warning, :failure, :error, :invalid, :alert, :unauthenticated, :unconfirmed, :invalid_token, :timeout, :inactive, :locked]
+
+  def login_logout
+    if user_signed_in?
+      link_to("Dashboard", dashboard_path)+' - '+link_to("Sign out", sign_out_path, confirm: "Are you sure?")
+    else
+      content_tag(:div, link_to("Sign in", sign_in_path, class: 'login-box'))
+    end
+  end
 
   def flash_messages
     return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
     formatted_messages = messages.map do |type|
-      content_tag(:div, :class => type.to_s) do
+      content_tag(:div, class: "alert-box #{type}") do
         message_for_item(flash[type], flash["#{type}_item".to_sym])
       end
     end
@@ -37,6 +45,10 @@ module ApplicationHelper
 
   def page_title(title)
     content_tag(:div, title, :class => 'page-title')
+  end
+
+  def me?(user)
+    user == current_user
   end
 
 end
