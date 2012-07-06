@@ -12,13 +12,17 @@
     = yield(:head)
     = csrf_meta_tags
   %body
-    #loading
-      = image_tag('layout/loading.gif', :alt => "Loading...")
-    = render("shared/header")
-    .container.main
-      .row
-        .twelve.columns
-          #flash-messages
-            = raw(flash_messages)
-          = yield
-    = render("shared/footer")
+    .container
+      #loading
+        = image_tag('layout/loading.gif', :alt => "Loading...")
+      = render("shared/header")
+      .main
+        .row
+          .span12
+            = render("shared/navigation")
+        .row
+          .span12
+            #flash-messages
+              = raw(flash_messages)
+            = yield
+      = render("shared/footer")

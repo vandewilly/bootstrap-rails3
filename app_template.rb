@@ -10,28 +10,36 @@ end
 gem 'haml'
 
 gem 'kaminari'
-gem "zurb-foundation"
+
+gem 'bootstrap-sass'
+gem 'simple_form'
+gem 'bootstrap-datepicker-rails'
 
 gem 'uuidtools'
 gem 'capistrano'
-gem 'capistrano-ext'
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem "american_date"
 
-gem "debugger", :group => [:test, :development]
-gem "pry", :group => [:test, :development]
-gem "faker", :group => [:test, :development]
-gem "haml-rails", :group => [:test, :development]
-gem 'rspec-rails', :group => [:development, :test]
-gem 'cucumber-rails', :group => [:test]
-gem "capybara", :group => [:test, :development]
-gem 'database_cleaner', :group => [:test, :development]
-gem 'launchy', :group => [:test, :development]    # So you can do Then show me the page
-gem 'factory_girl_rails', :group => [:test, :development]
-gem 'fakeweb', :group => [:test, :development]
-gem 'rest-client', :group => [:test, :development]
-gem 'simplecov', :group => [:test, :development]
+gem_group :test do
+  gem 'cucumber-rails', require: false
+end
+
+gem_group :development, :test do
+  gem "debugger"
+  gem "pry"
+  gem "faker"
+  gem "haml-rails"
+  gem 'rspec-rails'
+  gem "capybara"
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'factory_girl_rails'
+  gem 'fakeweb'
+  gem 'rest-client'
+  gem 'simplecov'
+end
 
 # download images
 get "https://github.com/nathansmith/formalize/blob/master/assets/images/button.png", "app/assets/images/layout/button.png"
@@ -52,15 +60,15 @@ end
 
 #download css
 remove_file "app/assets/stylesheets/application.css"
-get "#{repository_url}/app/assets/stylesheets/application.css.scss", "app/assets/stylesheets/application.css.scss"
+get "#{repository_url}/app/assets/stylesheets/application.scss", "app/assets/stylesheets/application.scss"
 ['_fonts', '_main'].each do |file|
-  get "#{repository_url}/app/assets/stylesheets/partials/#{file}.css.scss", "app/assets/stylesheets/partials/#{file}.css.scss"
+  get "#{repository_url}/app/assets/stylesheets/partials/#{file}.scss", "app/assets/stylesheets/partials/#{file}.scss"
 end
 
 # download config
 remove_file "config/routes.rb"
 remove_file "config/locales/en.yml"
-['locales/en.yml', 'routes.rb', 'initializers/generators.rb', 'initializers/mail.rb', 'initializers/omniauth.rb', 'mail.yml'].each do |file|
+['locales/en.yml', 'routes.rb', 'initializers/generators.rb', 'initializers/mail.rb', 'initializers/omniauth.rb', 'initializers/date_formats.rb', 'mail.yml'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
 
@@ -103,13 +111,22 @@ remove_file "app/views/layouts/application.html.erb"
   get "#{repository_url}/app/views/#{view_file}.html.haml", "app/views/#{view_file}.html.haml"
 end
 
-['_header', '_footer', '_tracking', '_pagination', '_pagination_links'].each do |shared|
+['_header', '_footer', '_tracking', '_pagination', '_pagination_links', '_sign_in_sign_out'].each do |shared|
   get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 
 gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
+
+# download lib
+inside('lib') do
+  run "mkdir extras"
+end
+
+['extras/simple_form_extensions.rb', 'tasks/postgres.rake'].each do |lib_file|
+  get "#{repository_url}/lib/#{lib_file}", "lib/#{lib_file}"
+end
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
@@ -243,6 +260,17 @@ end
 git :add => "."
 git :commit => "-m 'install cucumber and features'"
 
+run("bundle exec rails generate simple_form:install")
+
+remove_file "app/config/initializers/simple_form.rb"
+
+['simple_form.rb'].each do |initializer_file|
+  get "#{repository_url}/app/config/initializers/#{initializer_file}", "app/config/initializers/#{initializer_file}"
+end
+
+git :add => "."
+git :commit => "-m 'install simple_form'"
+
 # download deploy scripts
 get "#{repository_url}/config/deploy.rb", "config/deploy.rb"
 get "#{repository_url}/Capfile", "Capfile"
@@ -261,6 +289,7 @@ bundle exec rake db:create:all
 bundle exec rake db:migrate
 bundle exec rails generate rspec:install
 bundle exec rails generate cucumber:install --rspec --capybara
+bundle exec rails generate simple_form
 
 Run the following commands to complete the setup of #{app_name.classify}:
 

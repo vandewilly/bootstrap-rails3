@@ -9,9 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require foundation
+ *= require bootstrap-datepicker
  *= require_tree .
 */
 
-@import "partials/main.css.scss";
-@import "partials/fonts.css.scss";
+@import "partials/fonts";
+@import "bootstrap";
+@import "partials/main";
