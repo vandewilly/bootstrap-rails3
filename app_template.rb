@@ -260,12 +260,12 @@ end
 git :add => "."
 git :commit => "-m 'install cucumber and features'"
 
-run("bundle exec rails generate simple_form:install")
+run("bundle exec rails generate simple_form:install --bootstrap")
 
-remove_file "app/config/initializers/simple_form.rb"
+remove_file "config/initializers/simple_form.rb"
 
 ['simple_form.rb'].each do |initializer_file|
-  get "#{repository_url}/app/config/initializers/#{initializer_file}", "app/config/initializers/#{initializer_file}"
+  get "#{repository_url}/config/initializers/#{initializer_file}", "config/initializers/#{initializer_file}"
 end
 
 git :add => "."
