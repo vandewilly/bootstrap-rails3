@@ -3,7 +3,7 @@ Given /^I view the home page$/ do
 end
 
 Then /^I should see the navigation links$/ do
-  within(".user-navigation") do
+  within(".navbar") do
     page.should have_content("Sign in")
   end
 end

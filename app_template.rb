@@ -5,6 +5,7 @@ repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/master"
   remove_file f
 end
 
+
 # Gems, listed in alpha order
 
 gem 'haml'
@@ -111,7 +112,7 @@ remove_file "app/views/layouts/application.html.erb"
   get "#{repository_url}/app/views/#{view_file}.html.haml", "app/views/#{view_file}.html.haml"
 end
 
-['_header', '_footer', '_tracking', '_pagination', '_pagination_links', '_sign_in_sign_out'].each do |shared|
+['_header', '_footer', '_tracking', '_pagination', '_pagination_links', '_sign_in_sign_out', '_navigation'].each do |shared|
   get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 
@@ -127,6 +128,8 @@ end
 ['extras/simple_form_extensions.rb', 'tasks/postgres.rake'].each do |lib_file|
   get "#{repository_url}/lib/#{lib_file}", "lib/#{lib_file}"
 end
+
+gsub_file 'config/application.rb', '# config.autoload_paths += %W(#{config.root}/extras)', "config.autoload_paths += %W(#{config.root}/lib/extras)"
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
@@ -228,6 +231,7 @@ git :commit => "-m 'add the gems'"
 
 run("bundle exec rake db:create:all")
 run("bundle exec rake db:migrate")
+run("bundle exec rake db:test:prepare")
 run("bundle exec rails generate rspec:install")
 git :add => "."
 git :commit => "-m 'install rspec'"
@@ -287,6 +291,7 @@ gem install bundler capistrano
 bundle install
 bundle exec rake db:create:all
 bundle exec rake db:migrate
+bundle exec rake db:test:prepare
 bundle exec rails generate rspec:install
 bundle exec rails generate cucumber:install --rspec --capybara
 bundle exec rails generate simple_form
