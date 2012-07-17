@@ -3,7 +3,7 @@
 #############################################################
 
 set :application, 'APP_NAME'
-set :deploy_to, "/www/#{application}"
+set :deploy_to, "/www/#{application}.com"
 
 #use trunk to deploy to production
 set :branch, "master"
@@ -47,4 +47,5 @@ set :default_environment, { 'LANG' => 'en_US.UTF-8' }
 #  Post Deploy Hooks
 #############################################################
 
-after  "deploy:update_code", "deploy:write_revision"
+after "deploy:setup", "deploy:create_symlink"
+after "deploy:update_code", "deploy:write_revision"
