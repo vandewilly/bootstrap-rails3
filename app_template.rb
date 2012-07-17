@@ -237,7 +237,7 @@ git :add => "."
 git :commit => "-m 'install rspec'"
 
 ['application', 'pages', 'sessions', 'users'].each do |spec_file|
-  get "#{repository_url}/spec/controllers/#{spec_file}_controller_spec.rb", "spec/controllers/#{spec_file}_controller_sprc.rb"
+  get "#{repository_url}/spec/controllers/#{spec_file}_controller_spec.rb", "spec/controllers/#{spec_file}_controller_spec.rb"
 end
 
 ['factories/users', 'models/user_spec', 'helpers/application_helper_spec', 'views/users/dashboard.haml.html_spec'].each do |spec_file|
