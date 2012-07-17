@@ -129,7 +129,7 @@ end
   get "#{repository_url}/lib/#{lib_file}", "lib/#{lib_file}"
 end
 
-gsub_file 'config/application.rb', '# config.autoload_paths += %W(#{config.root}/extras)', "config.autoload_paths += %W(#{config.root}/lib/extras)"
+gsub_file 'config/application.rb', '# config.autoload_paths += %W(#{config.root}/extras)', "config.autoload_paths += %W(\#{config.root}/lib/extras)"
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
