@@ -86,7 +86,7 @@ password = ask("Local database password (enter for blank):")
 username = username.blank? ? "root" : username
 puts "Setting database username to #{username}"
 puts "Setting database password to #{password}"
-gsub_file 'config/database.yml', 'username: root', "username: #{username}"
+gsub_file 'config/database.yml', "username: #{app_name}", "username: #{username}"
 gsub_file 'config/database.yml', 'password:', "password: #{password}"
 
 # download controllers
