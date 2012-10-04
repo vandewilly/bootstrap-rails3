@@ -1,7 +1,4 @@
-.navbar
+.navbar.navbar-fixed-top
   .navbar-inner
-    .container
-      %ul.nav
-        %li
-          = link_to("Home", root_path)
-      = render("shared/sign_in_sign_out")
+    = link_to("APP_NAME", root_path, class: "brand")
+    = render("shared/sign_in_sign_out")

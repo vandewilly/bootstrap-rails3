@@ -109,6 +109,7 @@ end
 gsub_file 'app/views/layouts/application.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_header.html.haml', 'APP_NAME', "#{app_name}"
 gsub_file 'app/views/shared/_footer.html.haml', 'APP_NAME', "#{app_name}"
+gsub_file 'app/views/shared/_navigation.html.haml', 'APP_NAME', "#{app_name}"
 
 # download lib
 inside('lib') do
