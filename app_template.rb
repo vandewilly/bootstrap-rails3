@@ -61,7 +61,7 @@ end
 # download config
 remove_file "config/routes.rb"
 remove_file "config/locales/en.yml"
-['locales/en.yml', 'routes.rb', 'initializers/generators.rb', 'initializers/mail.rb', 'initializers/omniauth.rb', 'initializers/date_formats.rb', 'mail.yml'].each do |file|
+['locales/en.yml', 'routes.rb', 'initializers/generators.rb', 'initializers/omniauth.rb', 'initializers/date_formats.rb'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
 
