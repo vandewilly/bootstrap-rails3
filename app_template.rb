@@ -10,8 +10,6 @@ end
 
 gem 'haml'
 
-gem 'kaminari'
-
 gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
@@ -104,7 +102,7 @@ remove_file "app/views/layouts/application.html.erb"
   get "#{repository_url}/app/views/#{view_file}.html.haml", "app/views/#{view_file}.html.haml"
 end
 
-['_header', '_footer', '_tracking', '_pagination', '_pagination_links', '_sign_in_sign_out', '_navigation'].each do |shared|
+['_header', '_footer', '_tracking', '_sign_in_sign_out', '_navigation'].each do |shared|
   get "#{repository_url}/app/views/shared/#{shared}.html.haml", "app/views/shared/#{shared}.html.haml"
 end
 
