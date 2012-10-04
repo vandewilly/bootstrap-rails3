@@ -17,7 +17,6 @@ gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
 
 gem 'uuidtools'
-gem 'capistrano'
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
@@ -250,16 +249,6 @@ end
 
 git :add => "."
 git :commit => "-m 'install simple_form'"
-
-# download deploy scripts
-get "#{repository_url}/config/deploy.rb", "config/deploy.rb"
-get "#{repository_url}/Capfile", "Capfile"
-['bundler', 'git', 'passenger', 'settings', 'symlinks'].each do |deploy|
-  get "#{repository_url}/config/deploy/#{deploy}.rb", "config/deploy/#{deploy}.rb"
-end
-gsub_file 'config/deploy/settings.rb', 'APP_NAME', "#{app_name}"
-git :add => "."
-git :commit => "-m 'install deploy scripts'"
 
 docs = <<-DOCS
 We just ran
