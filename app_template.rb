@@ -23,10 +23,6 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem "american_date"
 
-gem_group :test do
-  gem 'cucumber-rails', require: false
-end
-
 gem_group :development, :test do
   gem "debugger"
   gem "pry"
@@ -43,8 +39,6 @@ gem_group :development, :test do
 end
 
 # download images
-get "https://github.com/nathansmith/formalize/blob/master/assets/images/button.png", "app/assets/images/layout/button.png"
-get "https://github.com/nathansmith/formalize/blob/master/assets/images/select_arrow.gif", "app/assets/images/layout/select_arrow.gif"
 get "#{repository_url}/app/assets/images/layout/loading.gif", "app/assets/images/layout/loading.gif"
 ['icons/success', 'icons/warning', 'icons/notice', 'icons/error', 'layout/logo'].each do |img|
   get "#{repository_url}/app/assets/images/#{img}.png", "app/assets/images/#{img}.png"
@@ -53,8 +47,7 @@ end
 #download javascript
 get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "app/assets/javascripts/jquery/jquery.blockUI.js"
 get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "app/assets/javascripts/lib/underscore.js"
-get "https://github.com/nathansmith/formalize/raw/master/assets/js/jquery.formalize.js", "app/assets/javascripts/jquery/jquery.formalize.js"
-get "http://modernizr.com/downloads/modernizr-2.5.3.js", "app/assets/javascripts/lib/modernizr.js"
+get "http://modernizr.com/downloads/modernizr-2.6.2.js", "app/assets/javascripts/lib/modernizr.js"
 ['lib/webfonts', 'main', 'application'].each do |js_file|
   get "#{repository_url}/app/assets/javascripts/#{js_file}.js", "app/assets/javascripts/#{js_file}.js"
 end
@@ -247,23 +240,6 @@ end
 git :add => "."
 git :commit => "-m 'install specs'"
 
-run("bundle exec rails generate cucumber:install --rspec --capybara")
-
-['home/base.feature'].each do |spec_file|
-  get "#{repository_url}/features/#{spec_file}", "features/#{spec_file}"
-end
-
-['base', 'debugging', 'home', 'user'].each do |step_file|
-  get "#{repository_url}/features/step_definitions/#{step_file}_steps.rb", "features/step_definitions/#{step_file}_steps.rb"
-end
-
-['db_cleaner', 'hooks', 'omniauth', 'paths', 'remote_ip_monkey_patch'].each do |support_file|
-  get "#{repository_url}/features/support/#{support_file}.rb", "features/support/#{support_file}.rb"
-end
-
-git :add => "."
-git :commit => "-m 'install cucumber and features'"
-
 run("bundle exec rails generate simple_form:install --bootstrap")
 
 remove_file "config/initializers/simple_form.rb"
@@ -293,7 +269,6 @@ bundle exec rake db:create:all
 bundle exec rake db:migrate
 bundle exec rake db:test:prepare
 bundle exec rails generate rspec:install
-bundle exec rails generate cucumber:install --rspec --capybara
 bundle exec rails generate simple_form
 
 Run the following commands to complete the setup of #{app_name.classify}:
