@@ -27,7 +27,6 @@ gem_group :development, :test do
   gem "haml-rails"
   gem 'rspec-rails'
   gem "capybara"
-  gem 'database_cleaner'
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'fakeweb'
@@ -218,7 +217,7 @@ git :init
 git :add => "."
 git :commit => "-m 'initial commit'"
 
-run("gem install bundler capistrano")
+run("gem install bundler")
 run("bundle install --path vendor/bundle")
 run("bundle pack")
 git :add => "."
@@ -255,7 +254,7 @@ git :commit => "-m 'install simple_form'"
 
 docs = <<-DOCS
 We just ran
-gem install bundler capistrano
+gem install bundler
 bundle install
 bundle exec rake db:create:all
 bundle exec rake db:migrate
