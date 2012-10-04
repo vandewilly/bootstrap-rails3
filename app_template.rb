@@ -71,11 +71,15 @@ end
 # fix configs
 gsub_file 'config/routes.rb', 'APP_NAME', "#{app_name.classify}"
 gsub_file 'config/locales/en.yml', 'APP_NAME', "#{app_name}"
-username = ask("Local database username (enter for postgres):")
-password = ask("Local database password (enter for blank):")
-username = username.blank? ? "postgres" : username
-puts "Setting database username to #{username}"
-puts "Setting database password to #{password}"
+
+# username = ask("Local database username (enter for postgres):")
+# password = ask("Local database password (enter for blank):")
+# username = username.blank? ? "postgres" : username
+# puts "Setting database username to #{username}"
+# puts "Setting database password to #{password}"
+# defaults for postgres for now
+password = ""
+username = "postgres"
 gsub_file 'config/database.yml', "username: #{app_name}", "username: #{username}"
 gsub_file 'config/database.yml', 'password:', "password: #{password}"
 
