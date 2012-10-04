@@ -5,9 +5,9 @@ repository_url = "https://github.com/jgeiger/bootstrap-rails3/raw/master"
   remove_file f
 end
 
-
 # Gems, listed in alpha order
 
+gem 'unicorn'
 gem 'haml'
 
 gem 'bootstrap-sass'
@@ -59,7 +59,7 @@ end
 # download config
 remove_file "config/routes.rb"
 remove_file "config/locales/en.yml"
-['locales/en.yml', 'routes.rb', 'initializers/generators.rb', 'initializers/omniauth.rb', 'initializers/date_formats.rb'].each do |file|
+['locales/en.yml', 'routes.rb', 'unicorn.rb', 'initializers/generators.rb', 'initializers/omniauth.rb', 'initializers/date_formats.rb'].each do |file|
   get "#{repository_url}/config/#{file}", "config/#{file}"
 end
 
@@ -209,6 +209,7 @@ db/*.sqlite3
 GITIGNORE
 
 create_file ".gitignore", gitignore
+get "#{repository_url}/Procfile", "Procfile"
 
 git :init
 git :add => "."
