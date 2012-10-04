@@ -7,7 +7,7 @@ describe SessionsController do
       User.should_receive(:from_omniauth).and_return(user)
       post 'create'
       session[:user_id].should == user.id
-      flash[:notice].should =~ /Signed in/i
+      flash[:success].should =~ /Signed in/i
       response.should redirect_to(root_url)
     end
   end
