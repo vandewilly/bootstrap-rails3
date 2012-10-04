@@ -1,13 +1,9 @@
 class SessionsController < ApplicationController
 
-  def new
-    redirect_to(dashboard_path) if current_user
-  end
-
   def create
     @user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = @user.id
-    redirect_to root_url, flash: { notice: "Signed in successfully." }
+    redirect_to root_url, flash: { success: "Signed in successfully." }
   end
 
   def destroy
