@@ -98,7 +98,7 @@ end
 # download views
 remove_file "app/views/layouts/application.html.erb"
 
-['layouts/application', 'pages/home', 'sessions/new', 'users/dashboard'].each do |view_file|
+['layouts/application', 'pages/help', 'sessions/new', 'users/dashboard'].each do |view_file|
   get "#{repository_url}/app/views/#{view_file}.html.haml", "app/views/#{view_file}.html.haml"
 end
 
