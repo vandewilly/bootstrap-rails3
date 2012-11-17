@@ -14,20 +14,26 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
 
-gem 'uuidtools'
-
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem "american_date"
 
+gem_group :test do
+  gem "webmock"
+end
+
 gem_group :development, :test do
+  gem "hirb"
+  gem "wirble"
   gem "debugger"
   gem "pry"
   gem "faker"
   gem "haml-rails"
   gem 'rspec-rails'
   gem "capybara"
+  gem "database_cleaner"
   gem 'launchy'
+  gem "factory_girl"
   gem 'factory_girl_rails'
   gem 'fakeweb'
   gem 'rest-client'
@@ -41,17 +47,14 @@ get "#{repository_url}/app/assets/images/layout/loading.gif", "app/assets/images
 end
 
 #download javascript
-get "https://github.com/malsup/blockui/raw/master/jquery.blockUI.js", "app/assets/javascripts/jquery/jquery.blockUI.js"
-get "https://github.com/documentcloud/underscore/raw/master/underscore.js", "app/assets/javascripts/lib/underscore.js"
-get "http://modernizr.com/downloads/modernizr-2.6.2.js", "app/assets/javascripts/lib/modernizr.js"
-['lib/webfonts', 'main', 'application'].each do |js_file|
+['main', 'application'].each do |js_file|
   get "#{repository_url}/app/assets/javascripts/#{js_file}.js", "app/assets/javascripts/#{js_file}.js"
 end
 
 #download css
 remove_file "app/assets/stylesheets/application.css"
 get "#{repository_url}/app/assets/stylesheets/application.scss", "app/assets/stylesheets/application.scss"
-['_fonts', '_main'].each do |file|
+['_main'].each do |file|
   get "#{repository_url}/app/assets/stylesheets/partials/#{file}.scss", "app/assets/stylesheets/partials/#{file}.scss"
 end
 

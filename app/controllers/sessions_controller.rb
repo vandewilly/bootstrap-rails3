@@ -14,5 +14,4 @@ class SessionsController < ApplicationController
   def failure
     redirect_to root_url, flash: { error: "Authentication failed, please try again." }
   end
-
 end

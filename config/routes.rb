@@ -11,5 +11,4 @@ APP_NAME::Application.routes.draw do
   resources :users
 
   root :to => 'pages#help'
-
 end

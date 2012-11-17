@@ -1,7 +1,7 @@
 .navbar.navbar-fixed-top
   .navbar-inner
-    = link_to("APP_NAME", root_path, class: "brand")
+    = link_to("APP_NAME", root_url, class: "brand")
     %ul.nav
       %li
-        = link_to("Help", help_path)
+        = link_to("Help", help_url)
     = render("shared/sign_in_sign_out")
