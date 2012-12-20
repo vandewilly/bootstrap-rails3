@@ -1,6 +1,6 @@
 Generate a Rails 3 application with RSpec, Haml, Twitter bootstrap and jQuery in one line:
 
-    % rails new application_name -T -d postgres -m https://github.com/jgeiger/bootstrap-rails3/raw/master/app_template.rb
+    % rails new application_name -T -d postgresql -m https://github.com/jgeiger/bootstrap-rails3/raw/master/app_template.rb
 
 Javascript
 ----------
